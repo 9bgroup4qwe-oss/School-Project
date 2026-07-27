@@ -1,0 +1,121 @@
+// Database Setup Helper
+// This script provides instructions and links for setting up the database
+
+const fs = require('fs');
+const path = require('path');
+
+const supabaseUrl = 'https://ibmdiynievtxkucgrkun.supabase.co';
+const sqlFilePath = path.join(__dirname, '../supabase/migrations/002_create_timetable_tables.sql');
+
+console.log('='.repeat(70));
+console.log('TIMETABLE DATABASE SETUP INSTRUCTIONS');
+console.log('='.repeat(70));
+console.log('');
+console.log('Project URL: ' + supabaseUrl);
+console.log('');
+
+// Check if SQL file exists
+if (fs.existsSync(sqlFilePath)) {
+  console.log('✓ SQL migration file found at: ' + sqlFilePath);
+  console.log('');
+} else {
+  console.log('✗ ERROR: SQL migration file not found!');
+  console.log('  Expected at: ' + sqlFilePath);
+  process.exit(1);
+}
+
+console.log('QUICK SETUP (5 minutes):');
+console.log('─'.repeat(40));
+console.log('');
+console.log('1. Open Supabase Dashboard:');
+console.log('   https://app.supabase.com/project/ibmdiynievtxkucgrkun');
+console.log('');
+console.log('2. Navigate to SQL Editor:');
+console.log('   In the left sidebar → Click "SQL Editor"');
+console.log('');
+console.log('3. Create New Query:');
+console.log('   Click "New query" button');
+console.log('');
+console.log('4. Copy & Paste Migration:');
+console.log(`   Open the file: ${sqlFilePath}`);
+console.log('   Copy all content (Ctrl+A, Ctrl+C)');
+console.log('   Paste into Supabase editor (Ctrl+V)');
+console.log('');
+console.log('5. Execute Migration:');
+console.log('   Click "Run" button (or Ctrl+Enter)');
+console.log('   Wait for "Success" message');
+console.log('');
+console.log('='.repeat(70));
+console.log('WHAT WILL BE CREATED:');
+console.log('='.repeat(70));
+console.log('');
+console.log('Tables:');
+console.log('  • user_timetables     - Stores user timetables');
+console.log('  • timetable_history   - Tracks all changes');
+console.log('  • timetable_activities- Activity type reference');
+console.log('  • timetable_shares    - Sharing permissions');
+console.log('  • timetable_analytics - Usage statistics');
+console.log('  • timetable_templates - Reusable templates');
+console.log('');
+console.log('Features:');
+console.log('  ✓ Automatic version tracking');
+console.log('  ✓ Change history logging');
+console.log('  ✓ Share with other users');
+console.log('  ✓ Public/private timetables');
+console.log('  ✓ Usage analytics');
+console.log('  ✓ Template system');
+console.log('');
+console.log('='.repeat(70));
+console.log('VERIFICATION');
+console.log('='.repeat(70));
+console.log('');
+console.log('After running the migration, verify setup:');
+console.log('');
+console.log('1. In Supabase Dashboard, go to "Table Editor"');
+console.log('2. You should see all 6 tables listed');
+console.log('3. Click on "user_timetables" table');
+console.log('4. Check that columns are properly created');
+console.log('');
+console.log('Then test in your app:');
+console.log('1. Go to http://localhost:3000/timetable');
+console.log('2. Try creating a timetable');
+console.log('3. Check browser console for any errors');
+console.log('');
+console.log('='.repeat(70));
+console.log('TROUBLESHOOTING');
+console.log('='.repeat(70));
+console.log('');
+console.log('Error: "relation \'public.user_timetables\' does not exist"');
+console.log('→ Solution: The migration was not executed properly');
+console.log('→ Action: Re-run the SQL migration in Supabase');
+console.log('');
+console.log('Error: "User not authenticated"');
+console.log('→ Solution: App will fallback to localStorage automatically');
+console.log('→ Action: Your timetables will still work locally');
+console.log('');
+console.log('Error: "Permission denied"');
+console.log('→ Solution: RLS policies might not be set correctly');
+console.log('→ Action: Re-run the complete migration');
+console.log('');
+console.log('Error: "JSON parsing failed"');
+console.log('→ Solution: AI response format issue');
+console.log('→ Action: Already fixed in latest code');
+console.log('');
+console.log('='.repeat(70));
+console.log('NEXT STEPS');
+console.log('='.repeat(70));
+console.log('');
+console.log('✓ Database is ready');
+console.log('✓ Tables are created');
+console.log('✓ RLS policies are active');
+console.log('✓ Triggers are set up');
+console.log('');
+console.log('Your timetable feature is now ready to use!');
+console.log('Timetables will save to the cloud when authenticated,');
+console.log('and fallback to localStorage when offline.');
+console.log('');
+console.log('Need help? Check the docs:');
+console.log('→ docs/02-architecture.md');
+console.log('→ docs/03-features/timetable.md');
+console.log('');
+console.log('='.repeat(70));

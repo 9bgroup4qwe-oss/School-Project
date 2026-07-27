@@ -1,0 +1,347 @@
+/* Timetable Enhancement Styles */
+
+/* No Timetable Actions */
+.no-timetable-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.create-timetable-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--timetable-transition);
+  text-decoration: none;
+  border: none;
+  font-size: var(--timetable-font-size-sm);
+}
+
+.create-timetable-btn.primary {
+  background: var(--timetable-primary);
+  color: white;
+}
+
+.create-timetable-btn.primary:hover {
+  background: #4267d1;
+  transform: translateY(-2px);
+  box-shadow: var(--timetable-shadow-md);
+}
+
+.create-timetable-btn.secondary {
+  background: var(--timetable-surface);
+  color: var(--timetable-text);
+  border: 2px solid var(--timetable-border);
+}
+
+.create-timetable-btn.secondary:hover {
+  background: var(--timetable-bg);
+  border-color: var(--timetable-primary);
+}
+
+/* Syllabus Summary */
+.syllabus-summary {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(83, 127, 231, 0.05);
+  border: 1px solid rgba(83, 127, 231, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.syllabus-summary h3 {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-primary);
+  margin-bottom: 1rem;
+}
+
+.summary-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--timetable-text-secondary);
+  font-size: var(--timetable-font-size-sm);
+}
+
+.stat-number {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 700;
+  color: var(--timetable-primary);
+  margin-right: 0.25rem;
+}
+
+/* Upload Modal */
+.upload-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.upload-modal {
+  background: var(--timetable-surface);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: var(--timetable-shadow-lg);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.upload-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--timetable-border);
+}
+
+.upload-modal-header h2 {
+  font-size: var(--timetable-font-size-xl);
+  font-weight: 600;
+  color: var(--timetable-text);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--timetable-text-secondary);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: var(--timetable-transition);
+}
+
+.close-button:hover {
+  background: var(--timetable-bg);
+  color: var(--timetable-text);
+}
+
+.upload-modal-content {
+  padding: 1.5rem;
+  max-height: calc(90vh - 120px);
+  overflow-y: auto;
+}
+
+/* Enhanced Chat Interface for Syllabus */
+.syllabus-chat-prompt {
+  background: linear-gradient(135deg, var(--timetable-primary), #6b9eff);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: var(--timetable-font-size-sm);
+}
+
+.syllabus-chat-prompt h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Progress Tracking */
+.progress-section {
+  background: var(--timetable-surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-header h3 {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+}
+
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.progress-stat {
+  text-align: center;
+  padding: 1rem;
+  background: var(--timetable-bg);
+  border-radius: 8px;
+}
+
+.progress-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--timetable-primary);
+}
+
+.progress-stat-label {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+  margin-top: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .no-timetable-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-timetable-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .summary-stats {
+    gap: 1rem;
+  }
+
+  .upload-modal {
+    width: 95%;
+  }
+}
+
+/* Study Recommendations */
+.recommendations {
+  background: var(--timetable-surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.recommendations h3 {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--timetable-text);
+}
+
+.recommendation-list {
+  list-style: none;
+  padding: 0;
+}
+
+.recommendation-list li {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: var(--timetable-bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--timetable-primary);
+}
+
+.recommendation-list li::before {
+  content: "✓";
+  color: var(--timetable-primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Subject Cards */
+.subject-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.subject-card {
+  background: var(--timetable-surface);
+  border: 1px solid var(--timetable-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: var(--timetable-transition);
+}
+
+.subject-card:hover {
+  box-shadow: var(--timetable-shadow-md);
+  transform: translateY(-2px);
+}
+
+.subject-name {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-bottom: 0.5rem;
+}
+
+.subject-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+}
+
+.subject-chapters {
+  margin-top: 1rem;
+}
+
+.chapter-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--timetable-border);
+}
+
+.chapter-item:last-child {
+  border-bottom: none;
+}
+
+.chapter-name {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text);
+}
+
+.chapter-hours {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+  background: var(--timetable-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}

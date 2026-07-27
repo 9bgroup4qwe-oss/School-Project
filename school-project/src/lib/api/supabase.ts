@@ -1,0 +1,1 @@
+// Supabase client configuration - to be implemented

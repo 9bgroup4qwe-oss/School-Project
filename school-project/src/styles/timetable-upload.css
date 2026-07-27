@@ -1,0 +1,217 @@
+/* Portion Sheet Upload Styles */
+
+.portion-sheet-upload {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.upload-area {
+  border: 2px dashed var(--timetable-border);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--timetable-surface);
+  transition: var(--timetable-transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area:hover {
+  border-color: var(--timetable-primary);
+  background: rgba(83, 127, 231, 0.02);
+}
+
+.upload-area.dragging {
+  border-color: var(--timetable-primary);
+  background: rgba(83, 127, 231, 0.05);
+  transform: scale(1.02);
+}
+
+.upload-area.uploading {
+  border-color: var(--timetable-primary);
+  background: rgba(83, 127, 231, 0.02);
+  cursor: not-allowed;
+}
+
+.upload-content {
+  pointer-events: none;
+}
+
+.upload-title {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.upload-description {
+  color: var(--timetable-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-formats {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+  opacity: 0.8;
+}
+
+.upload-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  background: var(--timetable-primary);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--timetable-transition);
+  pointer-events: auto;
+}
+
+.upload-button:hover {
+  background: #4267d1;
+  transform: translateY(-1px);
+}
+
+.upload-progress {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--timetable-border);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--timetable-bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--timetable-primary), #6b9eff);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--timetable-text-secondary);
+  font-size: var(--timetable-font-size-sm);
+}
+
+/* Uploaded File Display */
+.uploaded-file {
+  background: var(--timetable-surface);
+  border: 1px solid var(--timetable-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--timetable-bg);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--timetable-primary);
+}
+
+.file-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-meta {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+}
+
+.remove-file {
+  flex-shrink: 0;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--timetable-text-secondary);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--timetable-transition);
+}
+
+.remove-file:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.file-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+}
+
+/* Loading States */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--timetable-border);
+  border-top: 3px solid var(--timetable-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .upload-area {
+    padding: 2rem 1rem;
+  }
+
+  .upload-title {
+    font-size: var(--timetable-font-size-base);
+  }
+
+  .file-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .file-icon {
+    width: 80px;
+    height: 80px;
+  }
+}

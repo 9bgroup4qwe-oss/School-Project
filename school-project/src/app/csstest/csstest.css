@@ -1,0 +1,625 @@
+/* ===================
+   CSS Testing Lab - Tailwind CSS v4 Compatible
+   =================== */
+
+/* Import base styles */
+@import '../globals.css';
+
+/* ===================
+   CSS Custom Properties (Variables) - shadcn/ui Theme
+   ===================
+
+   HOW TO MODIFY COLORS:
+   All colors use HSL format for Tailwind CSS v4 compatibility.
+   Simply change the values to see real-time updates.
+
+   HUE (0-360): Controls the actual color
+   - 0 = Red, 60 = Yellow, 120 = Green, 180 = Cyan, 240 = Blue, 300 = Magenta
+
+   SATURATION (0-100%): Controls color intensity
+   - 0% = Grayscale, 100% = Full color
+
+   LIGHTNESS (0-100%): Controls brightness
+   - 0% = Black, 50% = Pure color, 100% = White
+
+   TAILWIND CSS v4 NOTES:
+   - All HSL values use underscores instead of commas: hsl(HUE_SATURATION%_LIGHTNESS%)
+   - Example: bg-[hsl(16.7568_64.1618%_66.0784%)]
+   - Variables work with Tailwind v4's @theme directive
+*/
+
+:root {
+  --background: hsl(0_0%_0%);
+  --foreground: hsl(0_0%_100%);
+  --card: hsl(0_0%_5.0980%);
+  --card-foreground: hsl(0_0%_100%);
+  --popover: hsl(0_0%_5.0980%);
+  --popover-foreground: hsl(0_0%_100%);
+  --primary: hsl(16.7568_64.1618%_66.0784%);
+  --primary-foreground: hsl(0_0%_0%);
+  --secondary: hsl(215.8537_34.1667%_52.9412%);
+  --secondary-foreground: hsl(0_0%_100%);
+  --muted: hsl(0_0%_14.9020%);
+  --muted-foreground: hsl(0_0%_70.9804%);
+  --accent: hsl(220_42.8571%_56.0784%);
+  --accent-foreground: hsl(0_0%_100%);
+  --destructive: hsl(0_84.3137%_60%);
+  --destructive-foreground: hsl(0_0%_100%);
+  --border: hsl(0_0%_20%);
+  --input: hsl(0_0%_20%);
+  --ring: hsl(16.7568_64.1618%_66.0784%);
+  --chart-1: hsl(16.7568_64.1618%_66.0784%);
+  --chart-2: hsl(215.8537_34.1667%_52.9412%);
+  --chart-3: hsl(220_42.8571%_56.0784%);
+  --chart-4: hsl(184.9485_100%_38.0392%);
+  --chart-5: hsl(0_0%_70.9804%);
+  --sidebar: hsl(240_50.0000%_96.0784%);
+  --sidebar-foreground: hsl(240_27.5862%_22.7451%);
+  --sidebar-primary: hsl(251.9008_55.7604%_57.4510%);
+  --sidebar-primary-foreground: hsl(0_0%_100%);
+  --sidebar-accent: hsl(218.4615_100.0000%_92.3529%);
+  --sidebar-accent-foreground: hsl(240_27.5862%_22.7451%);
+  --sidebar-border: hsl(240_34.7826%_90.9804%);
+  --sidebar-ring: hsl(251.9008_55.7604%_57.4510%);
+  --font-sans: Inter, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 10px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.12;
+  --shadow-color: hsl(240_30%_25%);
+  --shadow-2xs: 0px 4px 10px 0px hsl(240_30%_25%_/_0.06);
+  --shadow-xs: 0px 4px 10px 0px hsl(240_30%_25%_/_0.06);
+  --shadow-sm: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 1px 2px -1px hsl(240_30%_25%_/_0.12);
+  --shadow: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 1px 2px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-md: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 2px 4px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-lg: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 4px 6px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-xl: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 8px 10px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-2xl: 0px 4px 10px 0px hsl(240_30%_25%_/_0.30);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: hsl(0_0%_0%);
+  --foreground: hsl(0_0%_100%);
+  --card: hsl(0_0%_5.0980%);
+  --card-foreground: hsl(0_0%_100%);
+  --popover: hsl(0_0%_5.0980%);
+  --popover-foreground: hsl(0_0%_100%);
+  --primary: hsl(16.7568_64.1618%_66.0784%);
+  --primary-foreground: hsl(0_0%_0%);
+  --secondary: hsl(215.8537_34.1667%_52.9412%);
+  --secondary-foreground: hsl(0_0%_100%);
+  --muted: hsl(0_0%_14.9020%);
+  --muted-foreground: hsl(0_0%_70.9804%);
+  --accent: hsl(220_42.8571%_56.0784%);
+  --accent-foreground: hsl(0_0%_100%);
+  --destructive: hsl(0_84.3137%_60%);
+  --destructive-foreground: hsl(0_0%_100%);
+  --border: hsl(0_0%_20%);
+  --input: hsl(0_0%_20%);
+  --ring: hsl(16.7568_64.1618%_66.0784%);
+  --chart-1: hsl(251.2500_100%_78.0392%);
+  --chart-2: hsl(230.4878_44.0860%_63.5294%);
+  --chart-3: hsl(206.7123_89.0244%_67.8431%);
+  --chart-4: hsl(174.2857_41.8327%_50.7843%);
+  --chart-5: hsl(325.5224_100.0000%_73.7255%);
+  --sidebar: hsl(240_27.7778%_14.1176%);
+  --sidebar-foreground: hsl(240_48.7179%_92.3529%);
+  --sidebar-primary: hsl(251.2500_100%_78.0392%);
+  --sidebar-primary-foreground: hsl(240_26.8293%_8.0392%);
+  --sidebar-accent: hsl(240_33.3333%_28.2353%);
+  --sidebar-accent-foreground: hsl(240_48.7179%_92.3529%);
+  --sidebar-border: hsl(240_26.1538%_25.4902%);
+  --sidebar-ring: hsl(251.2500_100%_78.0392%);
+  --font-sans: Inter, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 10px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.12;
+  --shadow-color: hsl(240_30%_25%);
+  --shadow-2xs: 0px 4px 10px 0px hsl(240_30%_25%_/_0.06);
+  --shadow-xs: 0px 4px 10px 0px hsl(240_30%_25%_/_0.06);
+  --shadow-sm: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 1px 2px -1px hsl(240_30%_25%_/_0.12);
+  --shadow: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 1px 2px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-md: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 2px 4px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-lg: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 4px 6px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-xl: 0px 4px 10px 0px hsl(240_30%_25%_/_0.12), 0px 8px 10px -1px hsl(240_30%_25%_/_0.12);
+  --shadow-2xl: 0px 4px 10px 0px hsl(240_30%_25%_/_0.30);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+}
+
+/* ===================
+   Base Layout Styles
+   =================== */
+
+.csstest-container {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: var(--spacing-lg);
+  font-family: var(--font-sans);
+}
+
+/* Header Styles */
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+}
+
+.back-link {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all 300ms;
+}
+
+.back-link:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  transform: translateX(-4px);
+}
+
+/* Control Panel */
+.control-panel {
+  background-color: var(--card);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-md);
+}
+
+.control-hint {
+  padding: var(--spacing-sm);
+  background-color: var(--muted);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.hint-key {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ===================
+   Card Grid Layout
+   =================== */
+
+.test-grid {
+  margin-bottom: var(--spacing-xl);
+}
+
+.grid-title h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.grid-title p {
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* ===================
+   Sample Card Styles
+   =================== */
+
+.sample-card {
+  background-color: var(--card);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  transition: all 300ms;
+  box-shadow: var(--shadow-sm);
+}
+
+.sample-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card Elements */
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--card-foreground);
+}
+
+.card-text {
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+}
+
+/* ===================
+   Button Styles
+   =================== */
+
+.sample-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 300ms;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background-color: hsl(16.7568_64.1618%_70%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.btn-secondary:hover {
+  background-color: hsl(215.8537_34.1667%_60%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.btn-accent:hover {
+  background-color: hsl(220_42.8571%_65%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-success {
+  background-color: var(--chart-4);
+  color: var(--foreground);
+}
+
+.btn-success:hover {
+  background-color: hsl(184.9485_100%_45%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-warning {
+  background-color: var(--chart-2);
+  color: var(--foreground);
+}
+
+.btn-warning:hover {
+  background-color: hsl(215.8537_34.1667%_60%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-error {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.btn-error:hover {
+  background-color: hsl(0_84.3137%_65%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===================
+   Color Palette Display
+   =================== */
+
+.palette-section {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.palette-item {
+  text-align: center;
+  padding: var(--spacing-sm);
+}
+
+.color-swatch {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  margin: 0 auto var(--spacing-xs);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 300ms;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+/* Individual Color Swatches */
+.primary-swatch {
+  background-color: var(--primary);
+}
+
+.secondary-swatch {
+  background-color: var(--secondary);
+}
+
+.accent-swatch {
+  background-color: var(--accent);
+}
+
+.success-swatch {
+  background-color: var(--chart-4);
+}
+
+.warning-swatch {
+  background-color: var(--chart-2);
+}
+
+.error-swatch {
+  background-color: var(--destructive);
+}
+
+.color-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--foreground);
+}
+
+.color-value {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+}
+
+/* ===================
+   HSL Reference Section
+   =================== */
+
+.hsl-reference {
+  padding: var(--spacing-lg);
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.ref-item {
+  padding: var(--spacing-md);
+  background-color: var(--muted);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.ref-item h4 {
+  color: var(--accent);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.ref-item p {
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===================
+   Responsive Design
+   =================== */
+
+@media (max-width: 768px) {
+  .test-header {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .reference-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===================
+   Tailwind CSS v4 & shadcn/ui Integration Notes
+   ===================
+
+   USING THESE COLORS WITH TAILWIND CSS v4:
+
+   1. Direct HSL Usage (using shadcn/ui colors):
+      class="bg-[hsl(16.7568_64.1618%_66.0784%)]"  // Primary
+      class="text-[hsl(215.8537_34.1667%_52.9412%)]"  // Secondary
+      class="border-[hsl(220_42.8571%_56.0784%)]"       // Accent
+
+   2. Using CSS Variables:
+      class="bg-[var(--primary)]"
+      class="text-[var(--foreground)]"
+      class="border-[var(--border)]"
+
+   3. With @theme directive in tailwind.config.ts:
+      @theme {
+        --color-primary: hsl(16.7568 64.1618% 66.0784%);
+        --color-secondary: hsl(215.8537 34.1667% 52.9412%);
+        --color-accent: hsl(220 42.8571% 56.0784%);
+      }
+
+   4. Shadow Variables:
+      class="shadow-[var(--shadow)]"
+      class="shadow-[var(--shadow-lg)]"
+      class="shadow-[var(--shadow-xl)]"
+
+   QUICK COLOR MODIFICATIONS:
+
+   To change the primary color:
+   --primary: hsl(NEW_HUE_NEW_SATURATION%_NEW_LIGHTNESS%);
+
+   To change background color:
+   --background: hsl(NEW_HUE_NEW_SATURATION%_NEW_LIGHTNESS%);
+   --card: hsl(NEW_HUE_NEW_SATURATION%_NEW_LIGHTNESS%);
+
+   To change text colors:
+   --foreground: hsl(NEW_HUE_NEW_SATURATION%_NEW_LIGHTNESS%);
+   --muted-foreground: hsl(NEW_HUE_NEW_SATURATION%_NEW_LIGHTNESS%);
+
+   SHADCN/UI COLOR REFERENCE (Tailwind v4 format):
+
+   Primary:   hsl(16.7568_64.1618%_66.0784%)  // Orange
+   Secondary: hsl(215.8537_34.1667%_52.9412%)  // Blue
+   Accent:    hsl(220_42.8571%_56.0784%)       // Light Blue
+   Destructive: hsl(0_84.3137%_60%)          // Red
+   Muted:     hsl(0_0%_14.9020%)             // Dark Gray
+   Card:      hsl(0_0%_5.0980%)              // Very Dark Gray
+   Border:    hsl(0_0%_20%)                  // Gray
+
+   COMMON HSL COLOR VALUES (Tailwind v4 format):
+   Red:     hsl(0_75%_50%)
+   Orange:  hsl(38_85%_55%)
+   Yellow:  hsl(60_80%_50%)
+   Green:   hsl(142_70%_50%)
+   Blue:    hsl(210_70%_50%)
+   Purple:  hsl(258_70%_50%)
+   Pink:    hsl(280_85%_60%)
+   =================== */

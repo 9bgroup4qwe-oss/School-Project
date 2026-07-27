@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: rgb(15 15 26);
+  --color-foreground: rgb(226 226 245);
+  --color-card: rgb(26 26 46);
+  --color-card-foreground: rgb(226 226 245);
+  --color-popover: rgb(26 26 46);
+  --color-popover-foreground: rgb(226 226 245);
+  --color-primary: rgb(164 143 255);
+  --color-primary-foreground: rgb(15 15 26);
+  --color-secondary: rgb(45 43 85);
+  --color-secondary-foreground: rgb(196 194 255);
+  --color-muted: rgb(34 34 68);
+  --color-muted-foreground: rgb(160 160 192);
+  --color-accent: rgb(48 48 96);
+  --color-accent-foreground: rgb(226 226 245);
+  --color-destructive: rgb(255 84 112);
+  --color-destructive-foreground: rgb(255 255 255);
+  --color-border: rgb(48 48 82);
+  --color-input: rgb(48 48 82);
+  --color-ring: rgb(164 143 255);
+  --color-chart-1: rgb(164 143 255);
+  --color-chart-2: rgb(121 134 203);
+  --color-chart-3: rgb(100 181 246);
+  --color-chart-4: rgb(77 182 172);
+  --color-chart-5: rgb(255 121 198);
+  --font-sans: Inter, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.5rem;
+
+  /* Landing Page Design System */
+  --card-radius: 0.75rem;
+  --shadow-cosmic: rgba(15, 12, 41, 0.3);
+  --glass-violet: rgba(158, 127, 185, 0.1);
+  --glass-blur: 10px;
+  --text-shadow-primary: 0 2px 4px var(--shadow-cosmic);
+  --text-shadow-secondary: 0 1px 2px var(--shadow-cosmic);
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations if needed */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+/* Glass and cosmic shadow effects */
+.glass {
+  backdrop-filter: blur(10px);
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid rgba(48, 48, 96, 0.3);
+}
+
+.shadow-cosmic {
+  box-shadow:
+    0 0 20px rgba(164, 143, 255, 0.1),
+    0 0 40px rgba(164, 143, 255, 0.05),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Landing Page Specific Styles */
+.feature-card {
+  background: var(--glass-violet);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--card-radius);
+  box-shadow:
+    0 2px 4px var(--shadow-cosmic),
+    0 8px 16px rgba(15, 12, 41, 0.15);
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.benefit-card {
+  border-radius: var(--card-radius);
+  box-shadow:
+    0 2px 4px var(--shadow-cosmic),
+    0 12px 32px rgba(15, 12, 41, 0.1);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.testimonial-card {
+  background: var(--glass-violet);
+  backdrop-filter: blur(8px);
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 16px var(--shadow-cosmic);
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.faq-item {
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 8px var(--shadow-cosmic);
+  transition: box-shadow 0.2s ease;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 16px var(--shadow-cosmic);
+}
+
+.faq-item[aria-expanded="true"] {
+  box-shadow: inset 0 2px 4px var(--shadow-cosmic);
+}
+
+/* Typography Classes */
+.text-shadow-primary {
+  text-shadow: var(--text-shadow-primary);
+}
+
+.text-shadow-secondary {
+  text-shadow: var(--text-shadow-secondary);
+}
+
+/* CTA Button Enhanced Shadow */
+.cta-button {
+  box-shadow:
+    0 4px 12px var(--shadow-cosmic),
+    0 0 24px rgba(158, 127, 185, 0.2);
+  transform: translateZ(0);
+  will-change: transform;
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+  box-shadow:
+    0 6px 20px var(--shadow-cosmic),
+    0 0 32px rgba(158, 127, 185, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .feature-card,
+  .testimonial-card {
+    background: rgba(158, 127, 185, 0.25);
+  }
+}
+
+/* Chart Bar Shadows */
+.chart-bar {
+  box-shadow: 0 4px 8px var(--shadow-cosmic);
+}
+
+/* Timetable CSS Variables */
+:root {
+  --timetable-bg: rgb(26 26 46);
+  --timetable-surface: rgb(34 34 68);
+  --timetable-primary: rgb(164 143 255);
+  --timetable-border: rgb(48 48 96);
+  --timetable-text: rgb(226 226 245);
+  --timetable-text-secondary: rgb(160 160 192);
+  --timetable-font-size-xs: 0.75rem;
+  --timetable-font-size-sm: 0.875rem;
+  --timetable-font-size-base: 1rem;
+  --timetable-font-size-lg: 1.125rem;
+  --timetable-font-size-xl: 1.25rem;
+  --timetable-font-size-2xl: 1.5rem;
+  --timetable-transition: all 0.2s ease;
+}
+
+
+
+

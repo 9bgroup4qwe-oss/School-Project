@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "shadcn@latest",
+        "mcp"
+      ]
+    },
+    "supabase": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase",
+        "--read-only",
+        "--project-ref=<project-ref>"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "<SUPABASE_ACCESS_TOKEN>"
+      }
+    },
+    "color-theory": {
+      "command": "node",
+      "args": [
+        "./color-scheme-mcp/build/index.js"
+      ],
+      "cwd": "C:\\Users\\Aarush\\Desktop\\Cursor Code Projects\\learning-app"
+    },
+    "design-system": {
+      "command": "node",
+      "args": [
+        "./color-scheme-mcp/design-system-mcp/build/index.js"
+      ],
+      "cwd": "C:\\Users\\Aarush\\Desktop\\Cursor Code Projects\\learning-app"
+    }
+  }
+}

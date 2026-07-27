@@ -1,0 +1,254 @@
+/* Timetable Calendar View Styles */
+
+.timetable-calendar-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--timetable-surface);
+  border-radius: 12px;
+  border: 1px solid var(--timetable-border);
+}
+
+.calendar-title {
+  font-size: var(--timetable-font-size-xl);
+  font-weight: 600;
+  color: var(--timetable-text);
+}
+
+.month-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-button {
+  padding: 0.5rem;
+  background: var(--timetable-bg);
+  border: 1px solid var(--timetable-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--timetable-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:hover {
+  background: var(--timetable-primary);
+  color: white;
+  border-color: var(--timetable-primary);
+}
+
+.month-label {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+  min-width: 150px;
+  text-align: center;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.calendar-card {
+  border: 1px solid var(--timetable-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Calendar Custom Styles */
+.rdp-today > button {
+  background: var(--timetable-primary) !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.rdp-selected > button {
+  background: var(--timetable-bg) !important;
+  border: 2px solid var(--timetable-primary) !important;
+}
+
+.rdp-head_cell {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  color: var(--timetable-text-secondary);
+}
+
+.rdp-cell {
+  border: 1px solid var(--timetable-border);
+}
+
+/* Events Card */
+.events-card,
+.no-events-card {
+  border: 1px solid var(--timetable-border);
+  border-radius: 12px;
+}
+
+.events-card .card-header {
+  border-bottom: 1px solid var(--timetable-border);
+  background: var(--timetable-surface);
+  padding: 1rem 1.5rem;
+}
+
+.events-card .card-title {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+}
+
+.events-card .card-content {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.event-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--timetable-border);
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+/* Legend Card */
+.legend-card {
+  border: 1px solid var(--timetable-border);
+  border-radius: 12px;
+}
+
+.legend-card .card-header {
+  border-bottom: 1px solid var(--timetable-border);
+  background: var(--timetable-surface);
+  padding: 1rem 1.5rem;
+}
+
+.legend-card .card-title {
+  font-size: var(--timetable-font-size-base);
+  font-weight: 600;
+  color: var(--timetable-text);
+}
+
+.legend-card .card-content {
+  padding: 0 1.5rem 1rem;
+}
+
+/* Activity Colors */
+.bg-blue-500 { background-color: #3b82f6; }
+.bg-green-500 { background-color: #10b981; }
+.bg-yellow-500 { background-color: #eab308; }
+.bg-purple-500 { background-color: #a855f7; }
+.bg-pink-500 { background-color: #ec4899; }
+.bg-gray-500 { background-color: #6b7280; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .month-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  .timetable-calendar-view {
+    gap: 1rem;
+  }
+
+  .calendar-header {
+    padding: 0.75rem;
+  }
+
+  .calendar-title {
+    font-size: var(--timetable-font-size-lg);
+  }
+
+  .month-label {
+    font-size: var(--timetable-font-size-base);
+  }
+
+  .events-card .card-header,
+  .legend-card .card-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .events-card .card-content,
+  .legend-card .card-content {
+    padding: 0 1rem 1rem;
+  }
+
+  .event-item {
+    padding: 0.75rem 0;
+  }
+}
+
+/* Calendar Day Hover Effects */
+.rdp-cell:hover {
+  background-color: var(--timetable-bg);
+}
+
+/* Calendar Event Hover */
+.rdp-cell > div > div:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/* Calendar Event Colors on Dark Background */
+.rdp-cell > div > div {
+  transition: var(--timetable-transition);
+}
+
+/* Improve calendar visibility */
+.rdp {
+  width: 100%;
+}
+
+.rdp-table {
+  width: 100%;
+}
+
+/* Loading State */
+.calendar-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  background: var(--timetable-surface);
+  border-radius: 12px;
+  border: 1px solid var(--timetable-border);
+}
+
+.calendar-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--timetable-border);
+  border-top-color: var(--timetable-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

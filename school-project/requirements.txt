@@ -1,0 +1,110 @@
+# Learning App - Dependencies Requirements
+
+# This file lists all npm packages required for the Learning App project.
+# To install all dependencies, run: npm install
+
+# ===================================================================
+# PRODUCTION DEPENDENCIES
+# ===================================================================
+
+# React Framework
+react@^19.1.1
+react-dom@^19.1.1
+
+# Next.js Framework
+next@^15.5.4
+
+# TypeScript Support
+@types/node@^20.0.0
+@types/react@^18.0.0
+@types/react-dom@^18.0.0
+typescript@^5.0.0
+
+# Tailwind CSS v4 and Integration
+@tailwindcss/postcss@^4.1.13
+tailwind-merge@^3.3.1
+tailwindcss-animate@^1.0.7
+
+# UI Components (shadcn/ui)
+@radix-ui/react-accordion@^1.2.12
+@radix-ui/react-progress@^1.1.7
+@radix-ui/react-slot@^1.2.3
+class-variance-authority@^0.7.1
+clsx@^2.1.1
+
+# Icons
+lucide-react@^0.544.0
+
+# Graphics/WebGL (for future 3D features)
+ogl@^1.0.11
+
+# ===================================================================
+# DEVELOPMENT DEPENDENCIES
+# ===================================================================
+
+# Build Tools and PostCSS
+autoprefixer@^10.4.21
+postcss@^8.5.6
+
+# Code Quality
+eslint@^8.0.0
+eslint-config-next@^15.0.0
+
+# UI Component CLI
+shadcn@^3.3.1
+
+# Tailwind CSS
+tailwindcss@^4.0.0
+
+# ===================================================================
+# FUTURE DEPENDENCIES (for Backend Integration)
+# ===================================================================
+
+# Supabase Integration
+# @supabase/supabase-js@^2.39.0
+# @supabase/auth-helpers-nextjs@^0.8.0
+
+# Form Handling and Validation
+# react-hook-form@^7.48.0
+# @hookform/resolvers@^3.3.0
+# zod@^3.22.0
+
+# Authentication (if custom implementation needed)
+# bcrypt@^5.1.0
+# jsonwebtoken@^9.0.0
+
+# Utility Libraries
+# nanoid@^5.0.0
+# date-fns@^2.30.0
+
+# State Management (if needed)
+# zustand@^4.4.0
+# @reduxjs/toolkit@^1.9.0
+
+# Data Fetching (if needed)
+# @tanstack/react-query@^4.36.0
+
+# ===================================================================
+# INSTALLATION COMMANDS
+# ===================================================================
+
+# Install all dependencies:
+# npm install
+
+# Install specific package:
+# npm install package-name@version
+
+# Install development dependency:
+# npm install -D package-name@version
+
+# ===================================================================
+# VERSION NOTES
+# ===================================================================
+
+# This project uses:
+# - Next.js 15 (latest stable)
+# - React 19 (latest stable)
+# - Tailwind CSS v4 (latest)
+# - TypeScript 5 (latest stable)
+
+# Always check package.json for the exact versions used in the project.

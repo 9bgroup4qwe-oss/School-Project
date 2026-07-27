@@ -1,0 +1,445 @@
+/* Progress Tracker Styles */
+
+.progress-tracker {
+  background: var(--timetable-surface);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--timetable-shadow-lg);
+  margin-top: 2rem;
+}
+
+.progress-tracker-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Header */
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--timetable-border);
+}
+
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #fed7aa, #fb923c);
+  border-radius: 20px;
+  color: #9a3412;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Progress Cards */
+.progress-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.progress-card {
+  background: var(--timetable-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--timetable-border);
+  transition: var(--timetable-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--timetable-primary), #8b5cf6);
+}
+
+.progress-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--timetable-shadow-md);
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(83, 127, 231, 0.1);
+  margin-bottom: 1rem;
+}
+
+.card-content h3 {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-bottom: 1rem;
+}
+
+.progress-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--timetable-primary);
+}
+
+.stat-label {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--timetable-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Week Summary */
+.week-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  height: 60px;
+  margin-top: 1rem;
+}
+
+.day-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.day-label {
+  font-size: 10px;
+  color: var(--timetable-text-secondary);
+  font-weight: 500;
+}
+
+.day-bar {
+  width: 20px;
+  height: 40px;
+  background: var(--timetable-border);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.day-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+  transition: height 0.5s ease;
+}
+
+.day-percentage {
+  font-size: 10px;
+  color: var(--timetable-text-secondary);
+  font-weight: 600;
+}
+
+/* Subject Progress Section */
+.subject-progress-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: var(--timetable-font-size-xl);
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-bottom: 1.5rem;
+}
+
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subject-card {
+  background: var(--timetable-bg);
+  border-radius: 12px;
+  border: 1px solid var(--timetable-border);
+  overflow: hidden;
+  transition: var(--timetable-transition);
+}
+
+.subject-card:hover {
+  box-shadow: var(--timetable-shadow-sm);
+}
+
+.subject-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: var(--timetable-transition);
+}
+
+.subject-header:hover {
+  background: var(--timetable-surface);
+}
+
+.subject-info h4 {
+  font-size: var(--timetable-font-size-base);
+  font-weight: 600;
+  color: var(--timetable-text);
+  margin-bottom: 0.25rem;
+}
+
+.subject-hours {
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text-secondary);
+}
+
+.subject-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.subject-percentage {
+  font-size: var(--timetable-font-size-lg);
+  font-weight: 700;
+}
+
+.text-green-600 { color: #059669; }
+.text-blue-600 { color: #2563eb; }
+.text-yellow-600 { color: #d97706; }
+.text-red-600 { color: #dc2626; }
+
+/* Subject Details */
+.subject-details {
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid var(--timetable-border);
+  background: var(--timetable-surface);
+}
+
+.activity-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: var(--timetable-bg);
+  border-radius: 6px;
+  transition: var(--timetable-transition);
+}
+
+.activity-item:hover {
+  background: var(--timetable-surface);
+}
+
+.activity-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--timetable-border);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--timetable-transition);
+  background: white;
+}
+
+.activity-checkbox.completed {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+.activity-name {
+  flex: 1;
+  font-size: var(--timetable-font-size-sm);
+  color: var(--timetable-text);
+}
+
+.activity-name.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.activity-time {
+  font-size: var(--timetable-font-size-xs);
+  color: var(--timetable-text-secondary);
+  background: var(--timetable-surface);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Motivation Section */
+.motivation-section {
+  margin-top: 2rem;
+}
+
+.motivation-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.motivation-title {
+  font-size: var(--timetable-font-size-xl);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.motivation-message {
+  font-size: var(--timetable-font-size-base);
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+/* Progress Colors */
+.bg-green-500 { background-color: #10b981; }
+.bg-blue-500 { background-color: #3b82f6; }
+.bg-yellow-500 { background-color: #eab308; }
+.bg-red-500 { background-color: #ef4444; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .progress-tracker {
+    padding: 1rem;
+  }
+
+  .progress-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .progress-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .progress-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .week-summary {
+    gap: 0.5rem;
+  }
+
+  .day-bar {
+    width: 16px;
+    height: 30px;
+  }
+
+  .subject-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .subject-metrics {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-end;
+  }
+
+  .motivation-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Scrollbar Styling */
+.activity-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.activity-list::-webkit-scrollbar-track {
+  background: var(--timetable-bg);
+  border-radius: 3px;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+  background: var(--timetable-border);
+  border-radius: 3px;
+}
+
+.activity-list::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.progress-card {
+  animation: slideIn 0.5s ease forwards;
+}
+
+.progress-card:nth-child(1) { animation-delay: 0.1s; }
+.progress-card:nth-child(2) { animation-delay: 0.2s; }
+.progress-card:nth-child(3) { animation-delay: 0.3s; }
+
+.subject-card {
+  animation: slideIn 0.5s ease forwards;
+}
+
+/* Focus States */
+.activity-checkbox:focus {
+  outline: 2px solid var(--timetable-primary);
+  outline-offset: 2px;
+}
+
+.subject-header:focus {
+  outline: 2px solid var(--timetable-primary);
+  outline-offset: -2px;
+}

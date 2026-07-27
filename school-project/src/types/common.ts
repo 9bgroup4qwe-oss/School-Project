@@ -1,0 +1,1 @@
+// Common type definitions - to be implemented
