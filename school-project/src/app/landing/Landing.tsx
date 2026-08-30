@@ -1,365 +1,452 @@
+// app/(marketing)/landing/Landing.tsx
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
-  Sparkles,
-  BookOpen,
-  GraduationCap,
-  Zap,
-  Target,
-  Trophy,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Flame,
   Star,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  Clock,
+  Trophy,
+  Heart,
+  Lightbulb,
   Check,
-  Sliders,
-  Play
+  X,
+  ChevronDown,
+  BookOpen,
+  Instagram,
+  Twitter,
+  Facebook,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { NCERT_CURRICULUM } from '@/data/ncertCurriculum';
+import { Card } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import type { Badge, Feature, Stat } from './Landing.types';
+import {
+  NAVIGATION_LINKS,
+  HERO_TITLE,
+  HERO_DESCRIPTION,
+  HERO_CTA,
+  FEATURES_ROW_1,
+  FEATURES_ROW_2,
+  BENEFITS,
+  TESTIMONIALS,
+  COMPARISON_GROWMYIQ,
+  COMPARISON_TRADITIONAL,
+  FAQS,
+  CTA_TITLE,
+  CTA_DESCRIPTION,
+  CTA_PRIMARY,
+  CTA_SECONDARY,
+  FOOTER_LINKS,
+  SOCIAL_LINKS,
+  FOOTER_COPYRIGHT,
+} from './Landing.constants';
+
+const ICON_MAP = {
+  star: Star,
+  'check-circle': CheckCircle,
+  'chart-line': TrendingUp,
+  users: Users,
+  clock: Clock,
+  trophy: Trophy,
+  heart: Heart,
+};
 
 export default function Landing() {
-  const [demoGrade, setDemoGrade] = useState<number>(10);
-  const [demoSelectedAnswer, setDemoSelectedAnswer] = useState<number | null>(0);
-
-  const demoGradeData = NCERT_CURRICULUM[demoGrade] || NCERT_CURRICULUM[10];
-
   return (
-    <div className="min-h-screen bg-[#07080d] text-[#f1f5f9] font-sans antialiased selection:bg-yellow-400 selection:text-slate-950 relative overflow-x-hidden">
-      {/* Dynamic Background Ambient Orbs */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[150px]" />
-        <div className="absolute top-1/3 -right-40 w-[550px] h-[550px] rounded-full bg-amber-400/8 blur-[160px]" />
-        <div className="absolute -bottom-40 left-1/3 w-[650px] h-[650px] rounded-full bg-indigo-600/10 blur-[160px]" />
-      </div>
+    <div className="min-h-screen bg-background text-foreground">
 
-      {/* Top Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07080d]/80 backdrop-blur-xl border-b border-white/[0.06] px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/20 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-4 h-4 text-slate-950 fill-current" />
-            </div>
-            <span className="text-xl font-extrabold text-white tracking-tight">GrowMyIQ</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-400">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#curriculum" className="hover:text-white transition-colors">NCERT Classes 1–12</a>
-            <a href="#preview" className="hover:text-white transition-colors">Interactive Demo</a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link href="/auth">
-              <Button variant="ghost" className="text-sm font-bold text-gray-300 hover:text-white hover:bg-white/5">
-                Sign In
-              </Button>
-            </Link>
-            <Link href="/auth">
-              <Button className="text-sm font-extrabold bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 rounded-xl px-5 shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/30 hover:-translate-y-0.5 transition-all">
-                Get Started Free
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
+    
       {/* Hero Section */}
-      <section className="relative z-10 pt-36 pb-20 px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-          {/* Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-bold text-yellow-400 mb-8 backdrop-blur-md shadow-inner">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Curriculum Aligned • NCERT Classes 1 to 12</span>
-          </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Gradient overlays using only theme colors */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary" />
+        <div className="absolute inset-0 bg-gradient-to-t from-accent via-transparent to-transparent opacity-30" />
 
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] mb-6">
-            Master Every Chapter with <span className="bg-gradient-to-r from-yellow-300 via-amber-300 to-yellow-400 bg-clip-text text-transparent">Adaptive AI.</span>
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground text-shadow-primary">
+            {HERO_TITLE}
           </h1>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl mb-10">
-            Generate custom multiple-choice quizzes for any NCERT chapter, receive instant step-by-step reasoning on every question, and monitor your concept mastery.
+          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-muted-foreground">
+            {HERO_DESCRIPTION}
           </p>
 
-          {/* CTA Group */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <Link href="/auth" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-base shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/35 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                <Play className="w-4 h-4 fill-current" />
-                <span>Start Practicing for Free</span>
-              </button>
-            </Link>
-            <a href="#curriculum" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] text-white font-bold text-base border border-white/[0.08] backdrop-blur-lg hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                <BookOpen className="w-4 h-4 text-blue-400" />
-                <span>Browse Syllabus (1–12)</span>
-              </button>
-            </a>
-          </div>
-
-          {/* Trust Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-10 border-t border-white/[0.06] w-full text-left">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                <GraduationCap className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black text-white">12 Classes</div>
-                <div className="text-xs text-gray-400">Primary to Senior</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400">
-                <Zap className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black text-white">Instant Feedback</div>
-                <div className="text-xs text-gray-400">Step-by-step answers</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400">
-                <Target className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black text-white">Adaptive AI</div>
-                <div className="text-xs text-gray-400">Gemma 4 powered</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black text-white">100% Free</div>
-                <div className="text-xs text-gray-400">Open student tool</div>
-              </div>
-            </div>
-          </div>
+          {/* Enhanced CTA Button with glassmorphism and shadows */}
+          <Link href="/auth">
+            <Button className="px-8 py-4 rounded-full font-medium text-lg bg-primary hover:bg-primary/90 text-primary-foreground cta-button">
+              {HERO_CTA}
+            </Button>
+          </Link>
         </div>
       </section>
 
-      {/* Live Interactive Demo Section */}
-      <section id="preview" className="relative z-10 py-16 px-6 max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider">Live Demo Experience</span>
-          <h2 className="text-3xl font-extrabold text-white mt-1">See How Instant AI Feedback Works</h2>
-        </div>
-
-        {/* Demo Interactive Quiz Card */}
-        <div className="bg-[#0f111c]/80 backdrop-blur-2xl border border-white/[0.09] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60">
-          <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/[0.06]">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-wider">
-                Class 10 • Science (PCB)
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-yellow-400/15 border border-yellow-400/30 text-yellow-400 text-xs font-bold capitalize">
-                Medium
-              </span>
-            </div>
-            <span className="text-xs font-bold text-gray-400">Demo Question 1 of 1</span>
-          </div>
-
-          <h3 className="text-lg sm:text-xl font-bold text-white mb-6">
-            Which of the following processes occurs during photosynthesis in green plants?
-          </h3>
-
-          {/* Options */}
-          <div className="space-y-3 mb-6">
-            {[
-              { text: 'Reduction of carbon dioxide to carbohydrates', isCorrect: true },
-              { text: 'Oxidation of carbohydrates to carbon dioxide', isCorrect: false },
-              { text: 'Conversion of chemical energy to light energy', isCorrect: false },
-              { text: 'Absorption of nitrogen by chlorophyll', isCorrect: false }
-            ].map((opt, idx) => {
-              const isSelected = demoSelectedAnswer === idx;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setDemoSelectedAnswer(idx)}
-                  className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
-                    isSelected
-                      ? opt.isCorrect
-                        ? 'bg-green-500/15 border-green-500/50 text-white'
-                        : 'bg-red-500/15 border-red-500/50 text-white'
-                      : 'bg-white/[0.02] border-white/[0.06] text-gray-300 hover:bg-white/[0.05]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
-                      isSelected && opt.isCorrect
-                        ? 'bg-green-500 text-slate-950'
-                        : isSelected && !opt.isCorrect
-                        ? 'bg-red-500 text-white'
-                        : 'bg-white/10 text-gray-300'
-                    }`}>
-                      {String.fromCharCode(65 + idx)}
-                    </span>
-                    <span className="text-sm font-medium">{opt.text}</span>
-                  </div>
-
-                  {isSelected && opt.isCorrect && <CheckCircle2 className="w-5 h-5 text-green-400" />}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Explanation Demonstration Box */}
-          <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-xs text-gray-300 leading-relaxed">
-            <strong className="text-green-300 block mb-1">✓ Instant AI Explanation:</strong>
-            Photosynthesis involves the reduction of carbon dioxide (CO₂) to carbohydrates (glucose) using the assimilatory power (ATP and NADPH) generated during the light reactions.
-          </div>
-        </div>
-      </section>
-
-      {/* Curriculum Showcase Section */}
-      <section id="curriculum" className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider">Comprehensive NCERT Library</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">Explore All 12 Classes</h2>
-          <p className="text-sm text-gray-400 max-w-xl mx-auto mt-2">
-            Click any class below to preview subjects and authentic NCERT chapter lists.
-          </p>
-        </div>
-
-        {/* Grade Selector Strip */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(g => (
-            <button
-              key={g}
-              onClick={() => setDemoGrade(g)}
-              className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
-                demoGrade === g
-                  ? 'bg-yellow-400 text-slate-950 shadow-lg shadow-yellow-400/20'
-                  : 'bg-white/[0.04] text-gray-400 hover:bg-white/[0.08] hover:text-white border border-white/[0.06]'
-              }`}
-            >
-              Class {g}
-            </button>
-          ))}
-        </div>
-
-        {/* Selected Grade Subjects Preview */}
-        <div className="bg-[#0f111c]/70 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 sm:p-8">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.06]">
-            <div>
-              <h3 className="text-xl font-bold text-white">
-                {demoGradeData.gradeLabel} Curriculum
-              </h3>
-              <span className="text-xs text-yellow-400 font-bold">{demoGradeData.category}</span>
-            </div>
-            <Link href="/auth">
-              <Button size="sm" className="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold rounded-lg text-xs">
-                Launch {demoGradeData.gradeLabel} Quiz →
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {demoGradeData.subjects.map(s => (
-              <div key={s.id} className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.15] transition-all">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-2xl">{s.icon}</span>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">{s.name}</h4>
-                    <span className="text-xs text-gray-400">{s.chapters.length} NCERT Chapters</span>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400 line-clamp-2 mt-2">
-                  {s.chapters.join(', ')}
-                </p>
-              </div>
+      {/* Features Section 1 */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-2 gap-6">
+            {FEATURES_ROW_1.map((feature) => (
+              <FeatureCard key={feature.title} feature={feature} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section id="features" className="relative z-10 py-20 px-6 max-w-7xl mx-auto border-t border-white/[0.06]">
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider">Key Advantages</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">Designed for Academic Excellence</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-8 rounded-2xl bg-[#0f111c]/70 backdrop-blur-xl border border-white/[0.08] hover:border-yellow-400/40 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 mb-6">
-              <Zap className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Instant Step-by-Step Clarity</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Never wait until the end of an exam to discover why an answer was right or wrong. Learn the exact NCERT principle instantaneously.
-            </p>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-[#0f111c]/70 backdrop-blur-xl border border-white/[0.08] hover:border-blue-400/40 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6">
-              <Target className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Custom Chapter Selection</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Focus on specific weak chapters or select an entire subject syllabus. Adjust difficulty between Easy, Medium, and Exemplar Hard.
-            </p>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-[#0f111c]/70 backdrop-blur-xl border border-white/[0.08] hover:border-green-400/40 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 mb-6">
-              <Trophy className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Live Progress & History</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Track your scores, mastery percentage, time per question, and study consistency on your personalized student dashboard.
-            </p>
+      {/* Features Section 2 */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-2 gap-6">
+            {FEATURES_ROW_2.map((feature) => (
+              <FeatureCard key={feature.title} feature={feature} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer Call-to-Action */}
-      <section className="relative z-10 py-20 px-6 max-w-4xl mx-auto text-center">
-        <div className="bg-gradient-to-b from-[#141829] to-[#0d0e17] border border-white/[0.1] rounded-3xl p-10 sm:p-14 shadow-2xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/25 text-xs font-bold text-yellow-300 mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Ready to Elevate Your Scores?</span>
+      {/* Benefits Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-block bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              BENEFITS
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-shadow-primary">Why Choose Us?</h2>
+            <p className="max-w-2xl mx-auto text-muted-foreground">
+              Innovative tools and powerful insights designed to elevate your
+              studying.
+            </p>
           </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {BENEFITS.map((benefit) => (
+              <Card
+                key={benefit.title}
+                className="bg-card border-none p-6 benefit-card"
+              >
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mb-4">
+                  <Lightbulb className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
+                <p className="text-muted-foreground">{benefit.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Start Your First NCERT Quiz Now
-          </h2>
-          <p className="text-sm sm:text-base text-gray-400 max-w-lg mx-auto mb-8">
-            Join students preparing smartly across CBSE and state boards. No setup fees, no paywalls.
+      {/* Testimonials Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-block bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              WALL OF LOVE
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-shadow-primary">Loved by many</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((testimonial, index) => (
+              <Card
+                key={index}
+                className="bg-card border-none p-6 testimonial-card"
+              >
+                <p className="text-muted-foreground mb-4">"{testimonial.quote}"</p>
+                <div className="flex text-primary mb-2">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <p className="font-semibold">{testimonial.name}</p>
+                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comparison Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-block bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              COMPARISON
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-shadow-primary">Why GrowMyIQ Stands Out</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="bg-card border-none p-6 benefit-card">
+              <div className="flex items-center mb-6">
+                <div className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-3 py-1 rounded-md">
+                  <span className="font-bold">Grow</span>
+                  <span className="font-bold">MyIQ</span>
+                </div>
+              </div>
+              {COMPARISON_GROWMYIQ.map((item, index) => (
+                <ComparisonItem
+                  key={index}
+                  feature={item.feature}
+                  hasFeature={item.hasFeature}
+                />
+              ))}
+            </Card>
+            <Card className="bg-card border-none p-6 benefit-card">
+              <div className="flex items-center mb-6">
+                <BookOpen className="w-5 h-5 mr-2" />
+                <span className="font-semibold">Unplanned Learning</span>
+              </div>
+              {COMPARISON_TRADITIONAL.map((item, index) => (
+                <ComparisonItem
+                  key={index}
+                  feature={item.feature}
+                  hasFeature={item.hasFeature}
+                />
+              ))}
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-block bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              FAQ'S SECTION
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-shadow-primary">Some Common FAQ's</h2>
+            <p className="max-w-2xl mx-auto text-muted-foreground">
+              Get answers to your questions and learn about our platform
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {FAQS.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="bg-card rounded-lg px-4 border-none faq-item"
+                >
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  {faq.answer && (
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  )}
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4 text-shadow-primary">{CTA_TITLE}</h2>
+          <p className="max-w-2xl mx-auto mb-8 text-muted-foreground">
+            {CTA_DESCRIPTION}
           </p>
-
-          <Link href="/auth">
-            <button className="px-8 py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-base shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/35 hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
-              <span>Create Free Student Account</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </Link>
+          <div className="flex justify-center space-x-4 mb-12">
+            <Link href="/auth">
+              <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 px-6 py-6 rounded-full font-medium text-base text-primary-foreground">
+                {CTA_PRIMARY}
+              </Button>
+            </Link>
+            <Link href="/csstest">
+              <Button
+                variant="outline"
+                className="border-primary text-accent-foreground hover:bg-accent/10 px-6 py-6 rounded-full font-medium text-base"
+              >
+                {CTA_SECONDARY}
+              </Button>
+            </Link>
+          </div>
+          <div className="relative max-w-4xl mx-auto h-64 bg-card rounded-lg flex items-center justify-center text-muted-foreground">
+            Mobile App Preview Dashboard
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/[0.06] py-8 px-6 text-center text-xs text-gray-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded bg-yellow-400 flex items-center justify-center text-slate-950 font-black text-[10px]">
-              G
+      <footer className="bg-background py-12 px-6">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <div className="mb-6 md:mb-0">
+              <div className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-3 py-1 rounded-md inline-block">
+                <span className="font-bold">Grow</span>
+                <span className="font-bold">MyIQ</span>
+              </div>
             </div>
-            <span className="font-bold text-white">GrowMyIQ</span>
-            <span>• AI-Powered NCERT Learning</span>
+            <div className="flex flex-wrap gap-6 items-center">
+              {FOOTER_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
+                Book a Demo
+              </Button>
+            </div>
           </div>
-          <div>© {new Date().getFullYear()} GrowMyIQ. Built for educational excellence.</div>
+          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="flex space-x-6 mb-4 md:mb-0">
+              {SOCIAL_LINKS.map((social) => {
+                const Icon =
+                  social.platform === 'instagram'
+                    ? Instagram
+                    : social.platform === 'twitter'
+                    ? Twitter
+                    : Facebook;
+                return (
+                  <a
+                    key={social.platform}
+                    href={social.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
+            </div>
+            <div className="text-muted-foreground text-sm text-center">
+              {FOOTER_COPYRIGHT}
+            </div>
+            <div className="mt-4 md:mt-0">
+              <span className="text-muted-foreground text-sm">Made in Framer</span>
+            </div>
+          </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function FeatureCard({ feature }: { feature: Feature }) {
+  return (
+    <Card className="bg-card border-none p-6 feature-card">
+      <h3 className="text-xl font-semibold mb-3 text-shadow-secondary">{feature.title}</h3>
+      <p className="text-muted-foreground mb-4">{feature.description}</p>
+
+      {feature.badges && feature.badges.length > 0 && (
+        <div className="space-y-2 mb-4">
+          {feature.badges.map((badge, index) => {
+            const Icon = ICON_MAP[badge.icon];
+            const bgColor =
+              badge.icon === 'star'
+                ? 'bg-primary'
+                : badge.icon === 'check-circle'
+                ? 'bg-secondary'
+                : 'bg-accent';
+            return (
+              <div key={index} className="flex items-center">
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 ${bgColor}`}
+                >
+                  <Icon className="w-3 h-3 text-primary-foreground" />
+                </div>
+                <span className="text-sm text-muted-foreground">{badge.text}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {feature.hasChart && (
+        <div className="mt-4">
+          <div className="flex justify-between text-xs text-muted-foreground mb-2">
+            <span>Quiz Scores</span>
+            <span>All time</span>
+          </div>
+          <div className="h-32 w-full bg-card rounded flex items-end justify-between p-2 gap-1">
+            {[40, 60, 45, 70, 55, 80, 65].map((height, i) => (
+              <div
+                key={i}
+                className="bg-primary flex-1 rounded-t chart-bar"
+                style={{ height: `${height}%` }}
+              />
+            ))}
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked
+                readOnly
+                className="mr-2 accent-primary"
+              />
+              <span>Better score anytime</span>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked
+                readOnly
+                className="mr-2 accent-primary"
+              />
+              <span>Watch Stats & Growth</span>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked
+                readOnly
+                className="mr-2 accent-primary"
+              />
+              <span>Start Growing Now</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {feature.stats && feature.stats.length > 0 && (
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {feature.stats.map((stat, index) => {
+            const Icon = ICON_MAP[stat.icon];
+            return (
+              <div key={index} className="flex items-center">
+                <Icon className="w-4 h-4 mr-2 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">{stat.text}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </Card>
+  );
+}
+
+function ComparisonItem({
+  feature,
+  hasFeature,
+}: {
+  feature: string;
+  hasFeature: boolean;
+}) {
+  return (
+    <div className="flex items-start mb-4">
+      <div
+        className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 mt-0.5 ${
+          hasFeature ? 'bg-secondary' : 'bg-destructive'
+        }`}
+      >
+        {hasFeature ? (
+          <Check className="w-3 h-3 text-secondary-foreground" />
+        ) : (
+          <X className="w-3 h-3 text-destructive-foreground" />
+        )}
+      </div>
+      <span className="text-muted-foreground">{feature}</span>
     </div>
   );
 }

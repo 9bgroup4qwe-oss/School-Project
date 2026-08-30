@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Home, BarChart3, CheckSquare, Clock, Settings, HelpCircle, LogOut, User, Sparkles } from 'lucide-react';
+import { Home, BarChart3, CheckSquare, Clock, Settings, HelpCircle, LogOut, User } from 'lucide-react';
 import { SidebarNavItem } from '@/components/ui/SidebarNavItem';
 import { createClient } from '@/lib/supabase/client';
 import type { NavItem, SidebarUser } from '@/types/sidebar';
@@ -23,15 +22,15 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
 
         if (session?.user) {
           const userData: SidebarUser = {
-            name: session.user.user_metadata?.display_name || session.user.user_metadata?.username || 'Student',
-            handle: `@${session.user.user_metadata?.username || session.user.email?.split('@')[0] || 'student'}`,
+            name: session.user.user_metadata?.display_name || session.user.user_metadata?.username || 'User',
+            handle: `@${session.user.user_metadata?.username || session.user.email?.split('@')[0] || 'user'}`,
             email: session.user.email || '',
             avatar_url: session.user.user_metadata?.avatar_url || null
           };
           setUser(userData);
         }
       } catch (error) {
-        console.error('Error fetching user for sidebar:', error);
+        console.error('Error fetching user:', error);
       } finally {
         setIsLoading(false);
       }
@@ -39,12 +38,13 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
 
     getUser();
 
+    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === 'SIGNED_IN' && session?.user) {
           const userData: SidebarUser = {
-            name: session.user.user_metadata?.display_name || session.user.user_metadata?.username || 'Student',
-            handle: `@${session.user.user_metadata?.username || session.user.email?.split('@')[0] || 'student'}`,
+            name: session.user.user_metadata?.display_name || session.user.user_metadata?.username || 'User',
+            handle: `@${session.user.user_metadata?.username || session.user.email?.split('@')[0] || 'user'}`,
             email: session.user.email || '',
             avatar_url: session.user.user_metadata?.avatar_url || null
           };
@@ -61,10 +61,10 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
+      // The auth state change listener will handle the redirect
       window.location.href = '/auth';
     } catch (error) {
       console.error('Error signing out:', error);
-      window.location.href = '/auth';
     }
   };
 
@@ -78,17 +78,24 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
     },
     {
       id: 'quizzer',
-      label: 'Quiz Generator',
+      label: 'Quizzer',
       icon: 'check-square',
       href: '/quizzer',
       isActive: activeItem === 'quizzer'
     },
     {
       id: 'timetable',
-      label: 'Timetable & Plan',
+      label: 'Timetable',
       icon: 'clock',
       href: '/timetable',
       isActive: activeItem === 'timetable'
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      icon: 'bar-chart',
+      href: '/analytics',
+      isActive: activeItem === 'analytics'
     }
   ];
 
@@ -98,18 +105,24 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
       label: 'Settings',
       icon: 'settings',
       href: '/settings'
+    },
+    {
+      id: 'help',
+      label: 'Help Center',
+      icon: 'help-circle',
+      href: '/help'
     }
   ];
 
   if (isLoading) {
     return (
       <aside className="hidden lg:block w-64 sidebar-dark rounded-2xl p-6 mr-6 flex-shrink-0 relative">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-800 rounded mb-2"></div>
-          <div className="h-4 bg-gray-800 rounded w-3/4 mb-8"></div>
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-700 rounded mb-2"></div>
+          <div className="h-4 bg-gray-700 rounded w-3/4 mb-8"></div>
           <div className="space-y-2">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-10 bg-gray-800 rounded"></div>
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-10 bg-gray-700 rounded"></div>
             ))}
           </div>
         </div>
@@ -119,38 +132,33 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
 
   return (
     <aside className="hidden lg:block w-64 sidebar-dark rounded-2xl p-6 mr-6 flex-shrink-0 relative">
-      {/* Brand Header */}
-      <div className="mb-8 pb-4 border-b border-gray-800">
-        <Link href="/dashboard" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center text-slate-950 font-black shadow-md shadow-yellow-500/20 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 text-slate-950" />
-          </div>
-          <h1 className="text-xl font-extrabold text-white tracking-tight group-hover:text-yellow-400 transition-colors">
-            GrowMyIQ
-          </h1>
-        </Link>
-
+      {/* App Logo/Header */}
+      <div className="mb-8 pb-4 border-b border-gray-700">
+        <h1 className="sidebar-logo">
+          <svg className="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944v0A11.955 11.955 0 014.382 8.984M9 16l3-3m0 0l3 3m0-3h3M9 12h3" />
+          </svg>
+          LearnDash
+        </h1>
         {user && (
-          <div className="mt-4 p-2.5 rounded-xl bg-white/5 border border-white/5">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="mt-3">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 {user.avatar_url ? (
                   <img src={user.avatar_url} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
                 ) : (
-                  user.name.charAt(0).toUpperCase()
+                  <User size={16} className="text-white" />
                 )}
               </div>
-              <div className="overflow-hidden">
-                <p className="text-xs font-bold text-white truncate">{user.name}</p>
-                <p className="text-[11px] text-gray-400 truncate">{user.handle}</p>
-              </div>
+              <span className="text-sm font-medium text-white">{user.name}</span>
             </div>
+            <p className="sidebar-user-handle">{user.handle}</p>
           </div>
         )}
       </div>
 
       {/* Navigation Items */}
-      <nav className="space-y-1.5">
+      <nav className="space-y-2">
         {navItems.map((item) => (
           <SidebarNavItem
             key={item.id}
@@ -167,14 +175,27 @@ export function AuthenticatedSidebar({ activeItem = 'dashboard' }: Authenticated
         ))}
       </nav>
 
-      {/* Bottom Settings & Sign Out */}
-      <div className="absolute bottom-0 left-0 w-64 p-6 pt-4 border-t border-gray-800">
+      {/* Bottom Settings */}
+      <div className="absolute bottom-0 left-0 w-64 p-6 pt-6 border-t border-gray-700">
+        <nav className="space-y-2 mb-4">
+          {bottomNavItems.map((item) => (
+            <SidebarNavItem
+              key={item.id}
+              icon={item.icon === 'settings' ? Settings : HelpCircle}
+              label={item.label}
+              href={item.href}
+              isBottom
+            />
+          ))}
+        </nav>
+
+        {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all duration-200 group"
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all duration-200 group"
         >
           <LogOut size={18} className="group-hover:text-red-400 transition-colors" />
-          <span>Sign Out</span>
+          <span className="group-hover:text-white">Sign Out</span>
         </button>
       </div>
     </aside>
