@@ -100,7 +100,7 @@ async function getMockSyllabusData() {
           },
           {
             name: 'Structure of Atom',
-            topics: ['Bohr's Model', 'Quantum Numbers', 'Electronic Configuration'],
+            topics: ["Bohr's Model", 'Quantum Numbers', 'Electronic Configuration'],
             difficulty: 'hard',
             estimatedHours: 11,
             priority: 'high'

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ChevronLeft,
@@ -28,7 +28,7 @@ interface UserAnswer {
   timeSpentSeconds: number;
 }
 
-export default function QuizPage() {
+function QuizContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -578,5 +578,22 @@ export default function QuizPage() {
         </div>
       </div>
     </AuthGuard>
+  );
+}
+
+export default function QuizPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="quiz-loading-container min-h-screen bg-[#08090f] flex items-center justify-center text-yellow-400">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm font-bold">Loading NCERT Quiz Session...</p>
+          </div>
+        </div>
+      }
+    >
+      <QuizContent />
+    </Suspense>
   );
 }
