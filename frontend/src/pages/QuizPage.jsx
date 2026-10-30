@@ -229,7 +229,7 @@ export default function QuizPage() {
   );
 
   return (
-    <div style={{ maxWidth: '960px', margin: '0 auto', paddingBottom: '3rem' }}>
+    <div className="quiz-page-wrapper">
       {/* ERROR ALERT */}
       {error && (
         <div style={{
@@ -237,32 +237,32 @@ export default function QuizPage() {
           borderRadius: '12px', padding: '1rem', color: '#f87171', marginBottom: '1.5rem',
           display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.9rem'
         }}>
-          <AlertCircle size={20} />
+          <AlertCircle size={20} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </div>
       )}
 
       {/* STEP 1: CONFIGURATION WIZARD WITH SEQUENTIAL SUB-MENUS */}
       {step === 'config' && (
-        <div className="glass-panel animate-fade-in" style={{ padding: '2.25rem' }}>
+        <div className="glass-panel responsive-panel animate-fade-in">
           {/* Header Bar */}
           <div style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-            marginBottom: '1.75rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)',
-            flexWrap: 'wrap', gap: '1rem'
+            marginBottom: '1.5rem', paddingBottom: '1.15rem', borderBottom: '1px solid var(--border-subtle)',
+            flexWrap: 'wrap', gap: '0.85rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <div style={{
-                width: '48px', height: '48px', borderRadius: '12px', background: 'var(--accent-gradient)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)'
+                width: '44px', height: '44px', borderRadius: '12px', background: 'var(--accent-gradient)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)', flexShrink: 0
               }}>
-                <Sparkles size={24} color="#fff" />
+                <Sparkles size={22} color="#fff" />
               </div>
               <div>
-                <h2 style={{ fontSize: '1.65rem', fontWeight: 800, letterSpacing: '-0.02em' }}>
+                <h2 style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.65rem)', fontWeight: 800, letterSpacing: '-0.02em' }}>
                   Customizable Quiz
                 </h2>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.2rem' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.15rem' }}>
                   Choose your grade, subject, chapters, and test format to generate an authentic AI exam.
                 </p>
               </div>
@@ -288,11 +288,7 @@ export default function QuizPage() {
           </div>
 
           {/* Sequential Step Stepper Indicator */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem',
-            marginBottom: '2rem', background: 'rgba(0,0,0,0.25)', padding: '0.5rem',
-            borderRadius: '12px', border: '1px solid var(--border-subtle)'
-          }}>
+          <div className="quiz-stepper-grid">
             {[
               { num: 1, label: '1. Class', value: `Class ${selectedGrade}` },
               { num: 2, label: '2. Subject', value: currentSubjectObj?.name?.split(' ')[0] || 'Subject' },
@@ -760,7 +756,7 @@ export default function QuizPage() {
               )}
 
               {/* Navigation and Launch Button */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+              <div className="wizard-footer-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.85rem' }}>
                 <button
                   type="button"
                   onClick={() => goToStep(3)}
@@ -777,7 +773,7 @@ export default function QuizPage() {
                   onClick={handleStartQuiz}
                   className="btn-primary"
                   style={{
-                    padding: '0.9rem 2.25rem', fontSize: '1.05rem', fontWeight: 800,
+                    padding: '0.9rem 2rem', fontSize: '1rem', fontWeight: 800,
                     display: 'flex', alignItems: 'center', gap: '0.65rem',
                     boxShadow: '0 0 25px rgba(99, 102, 241, 0.5)'
                   }}
@@ -803,33 +799,34 @@ export default function QuizPage() {
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
           background: 'rgba(11, 15, 25, 0.85)', backdropFilter: 'blur(10px)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          padding: '1rem',
           zIndex: 9999
         }}>
           <div className="glass-panel animate-scale-up" style={{
-            padding: '2.5rem 3rem', maxWidth: '460px', width: '90%', textAlign: 'center',
+            padding: '2rem 1.5rem', maxWidth: '460px', width: '100%', textAlign: 'center',
             border: '1px solid rgba(99, 102, 241, 0.4)',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.3)'
           }}>
             <div style={{
-              width: '68px', height: '68px', borderRadius: '50%',
+              width: '64px', height: '64px', borderRadius: '50%',
               background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              margin: '0 auto 1.5rem',
+              margin: '0 auto 1.25rem',
               boxShadow: '0 0 30px rgba(99, 102, 241, 0.6)'
             }}>
-              <Brain size={36} color="#fff" />
+              <Brain size={32} color="#fff" />
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff' }}>
               Synthesizing AI Quiz
             </h3>
-            <p style={{ color: 'var(--text-subtle)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+            <p style={{ color: 'var(--text-subtle)', fontSize: '0.88rem', marginBottom: '1.25rem', lineHeight: 1.5 }}>
               OpenAI is generating brand-new, concept-testing questions tailored to your syllabus.
             </p>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              padding: '0.5rem 1.25rem', borderRadius: '20px',
+              padding: '0.45rem 1rem', borderRadius: '20px',
               background: 'rgba(99, 102, 241, 0.15)', border: '1px solid rgba(99, 102, 241, 0.3)',
-              fontSize: '0.85rem', color: '#a5b4fc', fontWeight: 600
+              fontSize: '0.8rem', color: '#a5b4fc', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center'
             }}>
               <Sparkles size={15} /> Class {selectedGrade} • {currentSubjectObj?.name} • {difficulty.toUpperCase()}
             </div>
@@ -839,28 +836,29 @@ export default function QuizPage() {
 
       {/* STEP 2: ACTIVE EXAM WITH LIVE PROPER TIMING */}
       {step === 'in_progress' && currentQ && (
-        <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem' }}>
+        <div className="glass-panel responsive-panel animate-fade-in">
           {/* Header Bar with Live Countdown Timer */}
           <div style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            marginBottom: '2rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1.25rem'
+            marginBottom: '1.5rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem',
+            flexWrap: 'wrap', gap: '0.75rem'
           }}>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <span className={`badge badge-${currentQ.difficulty}`}>
                 {currentQ.difficulty}
               </span>
-              <span style={{ fontSize: '0.85rem', color: '#818cf8', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.82rem', color: '#818cf8', fontWeight: 700 }}>
                 Class {selectedGrade} • {currentQ.chapter}
               </span>
             </div>
 
             {/* Countdown Badge */}
             <div style={{
-              display: 'flex', alignItems: 'center', gap: '0.5rem',
-              padding: '0.4rem 0.9rem', borderRadius: '8px',
+              display: 'flex', alignItems: 'center', gap: '0.45rem',
+              padding: '0.35rem 0.8rem', borderRadius: '8px',
               background: timeRemaining < 60 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(99, 102, 241, 0.15)',
               border: `1px solid ${timeRemaining < 60 ? '#ef4444' : '#818cf8'}`,
-              color: timeRemaining < 60 ? '#f87171' : '#818cf8', fontWeight: 700, fontSize: '0.9rem'
+              color: timeRemaining < 60 ? '#f87171' : '#818cf8', fontWeight: 700, fontSize: '0.88rem'
             }}>
               <Timer size={16} />
               <span>{formatTimer(timeRemaining)}</span>
@@ -868,15 +866,15 @@ export default function QuizPage() {
           </div>
 
           {/* Question Text */}
-          <div style={{ marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>
+          <div style={{ marginBottom: '0.4rem', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
             Question {currentIndex + 1} of {questions.length}
           </div>
-          <h3 style={{ fontSize: '1.35rem', fontWeight: 700, lineHeight: 1.45, marginBottom: '2.25rem' }}>
+          <h3 style={{ fontSize: 'clamp(1.1rem, 3.2vw, 1.35rem)', fontWeight: 700, lineHeight: 1.45, marginBottom: '1.75rem' }}>
             {currentQ.question_text}
           </h3>
 
           {/* Options */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '2rem' }}>
             {currentQ.options.map((opt, oIdx) => {
               const isSelected = selectedAnswers[currentQ.id] === oIdx;
               return (
@@ -884,8 +882,8 @@ export default function QuizPage() {
                   key={oIdx}
                   onClick={() => handleSelectOption(currentQ.id, oIdx)}
                   style={{
-                    display: 'flex', alignItems: 'center', gap: '1rem',
-                    padding: '1.1rem 1.35rem', borderRadius: '12px', textAlign: 'left',
+                    display: 'flex', alignItems: 'center', gap: '0.85rem',
+                    padding: '0.95rem 1.15rem', borderRadius: '12px', textAlign: 'left',
                     background: isSelected ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.03)',
                     border: isSelected ? '1px solid #818cf8' : '1px solid var(--border-subtle)',
                     color: '#fff', cursor: 'pointer', transition: 'all 0.15s ease',
@@ -893,21 +891,21 @@ export default function QuizPage() {
                   }}
                 >
                   <div style={{
-                    width: '34px', height: '34px', borderRadius: '8px',
+                    width: '32px', height: '32px', borderRadius: '8px', flexShrink: 0,
                     background: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.08)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontWeight: 800, fontSize: '0.95rem'
+                    fontWeight: 800, fontSize: '0.9rem'
                   }}>
                     {String.fromCharCode(65 + oIdx)}
                   </div>
-                  <span style={{ fontSize: '1rem', fontWeight: isSelected ? 600 : 400 }}>{opt}</span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: isSelected ? 600 : 400, lineHeight: 1.4 }}>{opt}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Navigation Controls */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
             <button
               onClick={() => {
                 soundEffects.playBack();
@@ -947,7 +945,7 @@ export default function QuizPage() {
 
       {/* STEP 3: RESULTS WITH STEP-BY-STEP EXPLANATIONS */}
       {step === 'results' && resultsData && (
-        <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem' }}>
+        <div className="glass-panel responsive-panel animate-fade-in">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',

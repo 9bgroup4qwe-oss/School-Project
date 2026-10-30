@@ -31,20 +31,20 @@ export default function DashboardPage({ onNavigate }) {
   };
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div className="page-container">
       {/* Welcome Hero */}
-      <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', position: 'relative', overflow: 'hidden' }}>
+      <div className="glass-panel responsive-panel" style={{ marginBottom: '1.5rem', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '600px' }}>
-          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Academic Command Center
           </span>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0.5rem 0 1rem 0', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(1.6rem, 4.5vw, 2.25rem)', fontWeight: 800, margin: '0.5rem 0 1rem 0', lineHeight: 1.2 }}>
             Master Every Concept with Precision
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '1.5rem' }}>
             Generate adaptive practice tests, review weak spots, and optimize your study schedule with real-time AI insights.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <button
               onClick={() => {
                 soundEffects.playNextStep();
@@ -70,7 +70,7 @@ export default function DashboardPage({ onNavigate }) {
       </div>
 
       {/* Metrics Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.85rem', marginBottom: '1.75rem' }}>
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
             <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Quizzes Taken</span>

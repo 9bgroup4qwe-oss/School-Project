@@ -76,27 +76,28 @@ export default function App() {
       <nav style={{
         background: 'rgba(11, 15, 25, 0.85)',
         backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--border-subtle)',
         position: 'sticky', top: 0, zIndex: 50,
-        padding: '0.75rem 1.5rem'
+        padding: '0.7rem 1rem'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
           {/* Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }} onClick={() => handleNavigate('dashboard')}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer', flexShrink: 0 }} onClick={() => handleNavigate('dashboard')}>
             <div style={{
-              width: '36px', height: '36px', borderRadius: '10px',
+              width: '34px', height: '34px', borderRadius: '10px',
               background: 'var(--accent-gradient)', display: 'flex', alignItems: 'center',
               justifyContent: 'center', boxShadow: 'var(--accent-glow)'
             }}>
-              <Sparkles size={20} color="#fff" />
+              <Sparkles size={18} color="#fff" />
             </div>
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
+            <span style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
               Grow<span style={{ color: '#818cf8' }}>MyIQ</span>
             </span>
           </div>
 
-          {/* Navigation Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {/* Desktop Navigation Links */}
+          <div className="desktop-nav-links">
             <button
               onClick={() => handleNavigate('dashboard')}
               style={{
@@ -144,7 +145,7 @@ export default function App() {
           </div>
 
           {/* User action & Global Sound Toggle */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <button
               onClick={handleToggleSound}
               style={{
@@ -159,22 +160,20 @@ export default function App() {
               title={soundOn ? 'Sound Effects Enabled (Click to mute)' : 'Sound Effects Muted (Click to enable)'}
             >
               {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
-              <span style={{ display: 'none', '@media (min-width: 640px)': { display: 'inline' } }}>
-                {soundOn ? 'SFX On' : 'SFX Off'}
-              </span>
+              <span className="hide-on-mobile">{soundOn ? 'SFX On' : 'SFX Off'}</span>
             </button>
 
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span className="hide-on-mobile" style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {session.user?.email || 'Student'}
             </span>
             <button
               onClick={handleLogout}
               className="btn-secondary"
-              style={{ padding: '0.45rem 0.85rem', fontSize: '0.85rem' }}
+              style={{ padding: '0.45rem 0.75rem', fontSize: '0.82rem' }}
               title="Sign Out"
             >
               <LogOut size={16} />
-              <span>Exit</span>
+              <span className="hide-on-mobile">Exit</span>
             </button>
           </div>
         </div>
@@ -186,6 +185,52 @@ export default function App() {
         {currentPage === 'quiz' && <QuizPage />}
         {currentPage === 'timetable' && <TimetablePage />}
       </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <nav className="mobile-bottom-nav">
+        {[
+          { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+          { id: 'quiz', label: 'AI Quiz', icon: Brain },
+          { id: 'timetable', label: 'Timetable', icon: Calendar }
+        ].map(tab => {
+          const IconComponent = tab.icon;
+          const isActive = currentPage === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => handleNavigate(tab.id)}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.25rem',
+                padding: '0.35rem 0.25rem',
+                background: 'none',
+                border: 'none',
+                color: isActive ? '#818cf8' : 'var(--text-subtle)',
+                fontWeight: isActive ? 800 : 600,
+                fontSize: '0.72rem',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <div style={{
+                padding: '0.3rem 0.85rem',
+                borderRadius: '999px',
+                background: isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <IconComponent size={18} />
+              </div>
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }

@@ -249,7 +249,7 @@ export default function TimetablePage() {
   };
 
   return (
-    <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '2rem 1.5rem' }}>
+    <div className="page-container" style={{ maxWidth: '1440px' }}>
       {/* Weak Areas Notification */}
       {detectedWeakAreas.length > 0 && (
         <div style={{
@@ -284,8 +284,8 @@ export default function TimetablePage() {
       {/* Header & Quick Action Buttons */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem' }}>
-            <h1 style={{ fontSize: '1.85rem', fontWeight: 800 }}>Grow My IQ AI Timetable</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+            <h1 style={{ fontSize: 'clamp(1.4rem, 4vw, 1.85rem)', fontWeight: 800 }}>Grow My IQ AI Timetable</h1>
             {activeTimetable?.exam_date && (
               <span style={{
                 fontSize: '0.8rem', background: 'rgba(239, 68, 68, 0.15)', color: '#f87171',
@@ -347,7 +347,7 @@ export default function TimetablePage() {
 
       {/* Topic Mastery Progress Meter */}
       <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Award size={18} color="#10b981" />
             <span style={{ fontSize: '0.95rem', fontWeight: 700 }}>Syllabus Mastery Progress</span>
@@ -369,10 +369,10 @@ export default function TimetablePage() {
       </div>
 
       {/* Main Layout: Specific Date Calendar Grid + Side AI Chat */}
-      <div style={{ display: 'grid', gridTemplateColumns: showChatBot ? '1fr 340px' : '1fr', gap: '1.5rem', alignItems: 'start' }}>
+      <div className={`timetable-layout-grid ${showChatBot ? 'with-chat' : ''}`}>
         
         {/* Calendar Days Stream */}
-        <div className="glass-panel" style={{ padding: '1.5rem', overflowX: 'auto' }}>
+        <div className="glass-panel responsive-panel" style={{ padding: '1.5rem', overflowX: 'auto' }}>
           {calendarDates.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
               <Calendar size={36} color="#818cf8" style={{ marginBottom: '1rem', opacity: 0.7 }} />
@@ -404,7 +404,7 @@ export default function TimetablePage() {
                   >
                     {/* Day Header with exact calendar date */}
                     <div style={{
-                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem',
                       paddingBottom: '0.85rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)'
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -429,7 +429,7 @@ export default function TimetablePage() {
                     </div>
 
                     {/* Slots for this specific date */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.85rem' }}>
                       {dayData.slots.map((slot, sIdx) => {
                         const isStudy = slot.type === 'study' || slot.type === 'revision';
                         const isCompleted = Boolean(slot.completed);
@@ -525,10 +525,7 @@ export default function TimetablePage() {
 
         {/* Side AI Chat Bot */}
         {showChatBot && (
-          <div className="glass-panel animate-fade-in" style={{
-            display: 'flex', flexDirection: 'column', height: '680px', padding: '1.25rem',
-            position: 'sticky', top: '90px'
-          }}>
+          <div className="glass-panel animate-fade-in timetable-chat-panel">
             {/* Chat Header */}
             <div style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -642,16 +639,16 @@ export default function TimetablePage() {
       {showGenerateModal && (
         <div style={{
           position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 100
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 100, overflowY: 'auto'
         }}>
-          <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '540px', padding: '2rem' }}>
-            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div className="glass-panel animate-fade-in responsive-panel" style={{ width: '100%', maxWidth: '540px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Sparkles color="#818cf8" size={22} />
               AI Date-Based Timetable Generator
             </h3>
 
             <form onSubmit={handleGenerate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2col">
                 <div>
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                     Academic Class
@@ -708,7 +705,7 @@ export default function TimetablePage() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2col">
                 <div>
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                     School Ending Time
@@ -760,9 +757,9 @@ export default function TimetablePage() {
       {showUploadModal && (
         <div style={{
           position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 100
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 100, overflowY: 'auto'
         }}>
-          <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
+          <div className="glass-panel animate-fade-in responsive-panel" style={{ width: '100%', maxWidth: '500px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Upload size={22} color="#818cf8" />
               Upload Syllabus or Exam Datesheet

@@ -37,7 +37,7 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1.25rem', position: 'relative' }}>
       {/* Back button */}
       {onBackToLanding && (
         <button
@@ -46,7 +46,8 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
             onBackToLanding();
           }}
           style={{
-            position: 'absolute', top: '2rem', left: '2rem',
+            alignSelf: 'flex-start',
+            marginBottom: '1.25rem',
             background: 'none', border: 'none', color: 'var(--text-muted)',
             cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
             fontWeight: 600, fontSize: '0.9rem'
@@ -56,7 +57,7 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
         </button>
       )}
 
-      <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
+      <div className="glass-panel animate-fade-in responsive-panel" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
             width: '56px', height: '56px', borderRadius: '16px', background: 'var(--accent-gradient)',

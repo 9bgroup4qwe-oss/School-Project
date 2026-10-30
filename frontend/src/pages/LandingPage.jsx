@@ -87,7 +87,7 @@ export default function LandingPage({ onGetStarted }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Navigation Header */}
-      <nav style={{
+      <nav className="app-top-navbar" style={{
         padding: '1.25rem 2rem',
         display: 'flex',
         justifyContent: 'space-between',
@@ -188,11 +188,11 @@ export default function LandingPage({ onGetStarted }) {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
           {benefits.map((b, idx) => {
             const Icon = b.icon;
             return (
-              <div key={idx} className="glass-panel" style={{ padding: '2rem' }}>
+              <div key={idx} className="glass-panel responsive-panel" style={{ padding: '2rem' }}>
                 <div style={{
                   width: '48px', height: '48px', borderRadius: '12px',
                   background: `${b.color}22`, border: `1px solid ${b.color}44`,
