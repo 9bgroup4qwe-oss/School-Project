@@ -104,7 +104,8 @@ class TimetableAPI {
     currentTimetable: TimetableData | null
   ): Promise<{ response: string; timetable?: TimetableData }> {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/timetable/chat', {
+      const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${baseUrl}/api/timetable/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

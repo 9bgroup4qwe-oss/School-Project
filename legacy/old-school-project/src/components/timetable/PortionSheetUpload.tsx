@@ -71,8 +71,10 @@ export function PortionSheetUpload({ onFileProcessed, onError }: PortionSheetUpl
       const formData = new FormData();
       formData.append('file', file);
 
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+
       // Call the Python backend for extraction
-      const extractResponse = await fetch('http://127.0.0.1:8000/api/timetable/extract-text', {
+      const extractResponse = await fetch(`${baseUrl}/api/timetable/extract-text`, {
         method: 'POST',
         body: formData,
       });
@@ -86,7 +88,7 @@ export function PortionSheetUpload({ onFileProcessed, onError }: PortionSheetUpl
 
       // Parse syllabus using AI (calling the same Python chat endpoint or a specific parse one)
       // For now, let's use the chat endpoint to "analyze" this text
-      const parseResponse = await fetch('http://127.0.0.1:8000/api/timetable/chat', {
+      const parseResponse = await fetch(`${baseUrl}/api/timetable/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

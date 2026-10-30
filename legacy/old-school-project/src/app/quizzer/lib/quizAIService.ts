@@ -21,7 +21,7 @@ export class QuizAIService {
   async generateQuiz(request: QuizRequest): Promise<QuizQuestion[]> {
     try {
       // First try Python FastAPI backend
-      const pythonBackendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const pythonBackendUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
       try {
         const response = await fetch(`${pythonBackendUrl}/api/quiz/generate`, {
           method: 'POST',
