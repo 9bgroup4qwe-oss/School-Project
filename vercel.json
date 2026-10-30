@@ -8,18 +8,6 @@
     "backend": {
       "root": "backend",
       "framework": "fastapi"
-    },
-    "legacy-frontend": {
-      "root": "legacy/old-school-project",
-      "framework": "nextjs",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "backend",
-          "format": "url",
-          "env": "BACKEND_URL"
-        }
-      ]
     }
   },
   "rewrites": [

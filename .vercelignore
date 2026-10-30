@@ -1,0 +1,6 @@
+legacy/
+tests/
+backend/.pytest_cache/
+backend/venv/
+backend/.env
+
