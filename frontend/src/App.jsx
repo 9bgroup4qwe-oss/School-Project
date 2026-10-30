@@ -74,7 +74,7 @@ export default function App() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Navigation Bar */}
       <nav style={{
-        background: 'rgba(11, 15, 25, 0.85)',
+        background: 'rgba(14, 19, 18, 0.88)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--border-subtle)',
@@ -89,10 +89,10 @@ export default function App() {
               background: 'var(--accent-gradient)', display: 'flex', alignItems: 'center',
               justifyContent: 'center', boxShadow: 'var(--accent-glow)'
             }}>
-              <Sparkles size={18} color="#fff" />
+              <Sparkles size={18} color="#0e1312" />
             </div>
             <span style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
-              Grow<span style={{ color: '#818cf8' }}>MyIQ</span>
+              Grow<span style={{ color: 'var(--accent-primary)' }}>MyIQ</span>
             </span>
           </div>
 
@@ -103,9 +103,9 @@ export default function App() {
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
-                background: currentPage === 'dashboard' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
-                border: currentPage === 'dashboard' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
-                color: currentPage === 'dashboard' ? '#818cf8' : 'var(--text-muted)',
+                background: currentPage === 'dashboard' ? 'rgba(110, 168, 163, 0.15)' : 'transparent',
+                border: currentPage === 'dashboard' ? '1px solid rgba(110, 168, 163, 0.3)' : '1px solid transparent',
+                color: currentPage === 'dashboard' ? 'var(--accent-primary)' : 'var(--text-muted)',
                 fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.15s ease'
               }}
             >
@@ -118,9 +118,9 @@ export default function App() {
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
-                background: currentPage === 'quiz' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
-                border: currentPage === 'quiz' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
-                color: currentPage === 'quiz' ? '#818cf8' : 'var(--text-muted)',
+                background: currentPage === 'quiz' ? 'rgba(110, 168, 163, 0.15)' : 'transparent',
+                border: currentPage === 'quiz' ? '1px solid rgba(110, 168, 163, 0.3)' : '1px solid transparent',
+                color: currentPage === 'quiz' ? 'var(--accent-primary)' : 'var(--text-muted)',
                 fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.15s ease'
               }}
             >
@@ -133,9 +133,9 @@ export default function App() {
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
-                background: currentPage === 'timetable' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
-                border: currentPage === 'timetable' ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid transparent',
-                color: currentPage === 'timetable' ? '#818cf8' : 'var(--text-muted)',
+                background: currentPage === 'timetable' ? 'rgba(110, 168, 163, 0.15)' : 'transparent',
+                border: currentPage === 'timetable' ? '1px solid rgba(110, 168, 163, 0.3)' : '1px solid transparent',
+                color: currentPage === 'timetable' ? 'var(--accent-primary)' : 'var(--text-muted)',
                 fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.15s ease'
               }}
             >
@@ -149,9 +149,9 @@ export default function App() {
             <button
               onClick={handleToggleSound}
               style={{
-                background: soundOn ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                border: soundOn ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid var(--border-subtle)',
-                color: soundOn ? '#818cf8' : 'var(--text-subtle)',
+                background: soundOn ? 'rgba(110, 168, 163, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                border: soundOn ? '1px solid rgba(110, 168, 163, 0.3)' : '1px solid var(--border-subtle)',
+                color: soundOn ? 'var(--accent-primary)' : 'var(--text-subtle)',
                 borderRadius: '8px', padding: '0.45rem 0.65rem',
                 display: 'flex', alignItems: 'center', gap: '0.4rem',
                 fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer',
@@ -209,7 +209,7 @@ export default function App() {
                 padding: '0.35rem 0.25rem',
                 background: 'none',
                 border: 'none',
-                color: isActive ? '#818cf8' : 'var(--text-subtle)',
+                color: isActive ? 'var(--accent-primary)' : 'var(--text-subtle)',
                 fontWeight: isActive ? 800 : 600,
                 fontSize: '0.72rem',
                 cursor: 'pointer',
@@ -219,7 +219,7 @@ export default function App() {
               <div style={{
                 padding: '0.3rem 0.85rem',
                 borderRadius: '999px',
-                background: isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
+                background: isActive ? 'rgba(110, 168, 163, 0.2)' : 'transparent',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'

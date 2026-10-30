@@ -75,7 +75,7 @@ export default function QuizPage() {
   const getSubjectIcon = (sub) => {
     const name = (sub?.name || sub?.id || '').toLowerCase();
     if (name.includes('math')) return <Calculator size={22} color="#38bdf8" />;
-    if (name.includes('sci') || name.includes('phys') || name.includes('chem') || name.includes('bio')) return <Atom size={22} color="#818cf8" />;
+    if (name.includes('sci') || name.includes('phys') || name.includes('chem') || name.includes('bio')) return <Atom size={22} color="#6ea8a3" />;
     if (name.includes('social') || name.includes('sst') || name.includes('hist') || name.includes('geo') || name.includes('civic') || name.includes('pol')) return <Globe2 size={22} color="#34d399" />;
     if (name.includes('ai') || name.includes('it') || name.includes('comp') || name.includes('tech')) return <Cpu size={22} color="#f472b6" />;
     if (name.includes('eng') || name.includes('lang') || name.includes('lit')) return <BookOpen size={22} color="#fbbf24" />;
@@ -254,9 +254,9 @@ export default function QuizPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '12px', background: 'var(--accent-gradient)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)', flexShrink: 0
+                display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(110, 168, 163, 0.4)', flexShrink: 0
               }}>
-                <Sparkles size={22} color="#fff" />
+                <Sparkles size={22} color="#0e1312" />
               </div>
               <div>
                 <h2 style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.65rem)', fontWeight: 800, letterSpacing: '-0.02em' }}>
@@ -273,9 +273,9 @@ export default function QuizPage() {
               type="button"
               onClick={handleToggleSound}
               style={{
-                background: soundOn ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                border: `1px solid ${soundOn ? '#818cf8' : 'var(--border-subtle)'}`,
-                color: soundOn ? '#818cf8' : 'var(--text-subtle)',
+                background: soundOn ? 'rgba(110, 168, 163, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                border: `1px solid ${soundOn ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
+                color: soundOn ? 'var(--accent-primary)' : 'var(--text-subtle)',
                 borderRadius: '20px', padding: '0.45rem 0.9rem', fontSize: '0.8rem',
                 fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.45rem',
                 cursor: 'pointer', transition: 'all 0.15s ease'
@@ -303,22 +303,22 @@ export default function QuizPage() {
                   type="button"
                   onClick={() => goToStep(st.num)}
                   style={{
-                    background: isCurrent ? 'var(--accent-primary)' : isPassed ? 'rgba(99, 102, 241, 0.12)' : 'transparent',
-                    border: isCurrent ? '1px solid #818cf8' : '1px solid transparent',
+                    background: isCurrent ? 'var(--accent-primary)' : isPassed ? 'rgba(110, 168, 163, 0.12)' : 'transparent',
+                    border: isCurrent ? '1px solid var(--accent-primary)' : '1px solid transparent',
                     borderRadius: '8px', padding: '0.6rem 0.75rem', textAlign: 'left',
                     cursor: 'pointer', transition: 'all 0.15s ease',
-                    boxShadow: isCurrent ? '0 0 15px rgba(99, 102, 241, 0.35)' : 'none'
+                    boxShadow: isCurrent ? '0 0 15px rgba(110, 168, 163, 0.35)' : 'none'
                   }}
                 >
                   <div style={{
                     fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em',
-                    color: isCurrent ? '#fff' : isPassed ? '#818cf8' : 'var(--text-subtle)'
+                    color: isCurrent ? '#0e1312' : isPassed ? 'var(--accent-primary)' : 'var(--text-subtle)'
                   }}>
                     {st.label}
                   </div>
                   <div style={{
                     fontSize: '0.82rem', fontWeight: 700, marginTop: '0.2rem',
-                    color: isCurrent ? '#fff' : isPassed ? '#cbd5e1' : 'var(--text-muted)',
+                    color: isCurrent ? '#0e1312' : isPassed ? '#cbd5e1' : 'var(--text-muted)',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
                   }}>
                     {st.value}
@@ -353,8 +353,8 @@ export default function QuizPage() {
                       style={{
                         padding: '1.35rem 1rem',
                         borderRadius: '14px',
-                        background: isSelected ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.03)',
-                        border: isSelected ? '2px solid #818cf8' : '1px solid var(--border-subtle)',
+                        background: isSelected ? 'rgba(110, 168, 163, 0.25)' : 'rgba(255, 255, 255, 0.03)',
+                        border: isSelected ? '2px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
                         color: '#fff',
                         cursor: 'pointer',
                         display: 'flex',
@@ -363,20 +363,21 @@ export default function QuizPage() {
                         justifyContent: 'center',
                         gap: '0.5rem',
                         transition: 'all 0.15s ease',
-                        boxShadow: isSelected ? '0 0 20px rgba(99, 102, 241, 0.35)' : 'none',
+                        boxShadow: isSelected ? '0 0 20px rgba(110, 168, 163, 0.35)' : 'none',
                         transform: isSelected ? 'scale(1.02)' : 'none'
                       }}
                     >
                       <div style={{
                         width: '36px', height: '36px', borderRadius: '10px',
                         background: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.06)',
+                        color: isSelected ? '#0e1312' : '#fff',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontWeight: 800, fontSize: '0.95rem'
                       }}>
                         {g}
                       </div>
                       <div style={{ fontWeight: 800, fontSize: '1rem' }}>Class {g}</div>
-                      <div style={{ fontSize: '0.72rem', color: isSelected ? '#a5b4fc' : 'var(--text-subtle)' }}>
+                      <div style={{ fontSize: '0.72rem', color: isSelected ? 'var(--accent-tertiary)' : 'var(--text-subtle)' }}>
                         {g >= 11 ? 'Senior Secondary' : g >= 9 ? 'Secondary Board' : 'Middle School'}
                       </div>
                     </button>
@@ -435,22 +436,22 @@ export default function QuizPage() {
                         padding: '1.25rem',
                         borderRadius: '14px',
                         textAlign: 'left',
-                        background: isSubSelected ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-                        border: isSubSelected ? '2px solid #818cf8' : '1px solid var(--border-subtle)',
+                        background: isSubSelected ? 'rgba(110, 168, 163, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                        border: isSubSelected ? '2px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
                         color: '#fff',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: '1rem',
                         transition: 'all 0.15s ease',
-                        boxShadow: isSubSelected ? '0 0 20px rgba(99, 102, 241, 0.3)' : 'none',
+                        boxShadow: isSubSelected ? '0 0 20px rgba(110, 168, 163, 0.3)' : 'none',
                         transform: isSubSelected ? 'scale(1.02)' : 'none'
                       }}
                     >
                       <div style={{
                         width: '42px', height: '42px', borderRadius: '10px',
-                        background: isSubSelected ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255, 255, 255, 0.05)',
-                        border: `1px solid ${isSubSelected ? '#818cf8' : 'var(--border-subtle)'}`,
+                        background: isSubSelected ? 'rgba(110, 168, 163, 0.3)' : 'rgba(255, 255, 255, 0.05)',
+                        border: `1px solid ${isSubSelected ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         flexShrink: 0
                       }}>
@@ -469,8 +470,8 @@ export default function QuizPage() {
                           </span>
                           {sub.stream && sub.stream !== 'General' && (
                             <span style={{
-                              fontSize: '0.72rem', background: 'rgba(99, 102, 241, 0.15)',
-                              padding: '0.15rem 0.5rem', borderRadius: '6px', color: '#a5b4fc', fontWeight: 600
+                              fontSize: '0.72rem', background: 'rgba(110, 168, 163, 0.15)',
+                              padding: '0.15rem 0.5rem', borderRadius: '6px', color: 'var(--accent-tertiary)', fontWeight: 600
                             }}>
                               {sub.stream}
                             </span>
@@ -535,7 +536,7 @@ export default function QuizPage() {
                     }}
                     style={{
                       background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-subtle)',
-                      color: '#a5b4fc', borderRadius: '8px', padding: '0.35rem 0.85rem',
+                      color: 'var(--accent-tertiary)', borderRadius: '8px', padding: '0.35rem 0.85rem',
                       fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer'
                     }}
                   >
@@ -572,22 +573,22 @@ export default function QuizPage() {
                       onClick={() => toggleChapter(chap)}
                       style={{
                         padding: '0.75rem 0.95rem', borderRadius: '10px', cursor: 'pointer',
-                        background: isChecked ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.02)',
-                        border: isChecked ? '1px solid #818cf8' : '1px solid var(--border-subtle)',
+                        background: isChecked ? 'rgba(110, 168, 163, 0.2)' : 'rgba(255, 255, 255, 0.02)',
+                        border: isChecked ? '1px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
                         display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.88rem',
                         color: isChecked ? '#fff' : 'var(--text-muted)',
                         transition: 'all 0.12s ease',
-                        boxShadow: isChecked ? '0 0 12px rgba(99, 102, 241, 0.25)' : 'none'
+                        boxShadow: isChecked ? '0 0 12px rgba(110, 168, 163, 0.25)' : 'none'
                       }}
                     >
                       <div style={{
                         width: '20px', height: '20px', borderRadius: '5px',
-                        border: `1.5px solid ${isChecked ? '#818cf8' : 'var(--border-subtle)'}`,
+                        border: `1.5px solid ${isChecked ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
                         background: isChecked ? 'var(--accent-primary)' : 'transparent',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         flexShrink: 0
                       }}>
-                        {isChecked && <Check size={13} color="#fff" strokeWidth={3} />}
+                        {isChecked && <Check size={13} color="#0e1312" strokeWidth={3} />}
                       </div>
                       <span style={{ fontWeight: isChecked ? 700 : 500, lineHeight: 1.35 }}>{chap}</span>
                     </div>
@@ -648,9 +649,9 @@ export default function QuizPage() {
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.85rem' }}>
                   {[
-                    { id: 'easy', title: 'Easy (Concept Basics)', desc: 'Core definitions, formulas, and fundamental recall', color: '#10b981' },
-                    { id: 'medium', title: 'Medium (CBSE Standard)', desc: 'Standard board exam pattern with conceptual reasoning', color: '#6366f1' },
-                    { id: 'hard', title: 'Hard (Advanced Drill)', desc: 'Multi-concept integration, numericals, and board challenges', color: '#ef4444' }
+                    { id: 'easy', title: 'Easy (Concept Basics)', desc: 'Core definitions, formulas, and fundamental recall', color: '#52b788' },
+                    { id: 'medium', title: 'Medium (CBSE Standard)', desc: 'Standard board exam pattern with conceptual reasoning', color: '#6ea8a3' },
+                    { id: 'hard', title: 'Hard (Advanced Drill)', desc: 'Multi-concept integration, numericals, and board challenges', color: '#f27984' }
                   ].map(diff => {
                     const isDiffSelected = difficulty === diff.id;
                     return (
@@ -665,7 +666,7 @@ export default function QuizPage() {
                           padding: '1.15rem',
                           borderRadius: '12px',
                           textAlign: 'left',
-                          background: isDiffSelected ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                          background: isDiffSelected ? 'rgba(110, 168, 163, 0.2)' : 'rgba(255, 255, 255, 0.03)',
                           border: isDiffSelected ? `2px solid ${diff.color}` : '1px solid var(--border-subtle)',
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
@@ -704,13 +705,13 @@ export default function QuizPage() {
                         style={{
                           flex: 1, minWidth: '120px', padding: '0.85rem 1rem', borderRadius: '12px',
                           background: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.03)',
-                          border: isSelected ? '1px solid #818cf8' : '1px solid var(--border-subtle)',
-                          color: '#fff', cursor: 'pointer', textAlign: 'center',
-                          boxShadow: isSelected ? '0 0 15px rgba(99, 102, 241, 0.35)' : 'none'
+                          border: isSelected ? '1px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
+                          color: isSelected ? '#0e1312' : '#fff', cursor: 'pointer', textAlign: 'center',
+                          boxShadow: isSelected ? '0 0 15px rgba(110, 168, 163, 0.35)' : 'none'
                         }}
                       >
                         <div style={{ fontWeight: 800, fontSize: '1.15rem' }}>{cnt} Questions</div>
-                        <div style={{ fontSize: '0.75rem', color: isSelected ? '#a5b4fc' : 'var(--text-subtle)', marginTop: '0.2rem' }}>
+                        <div style={{ fontSize: '0.75rem', color: isSelected ? '#152422' : 'var(--text-subtle)', marginTop: '0.2rem' }}>
                           ~{Math.round(cnt * 1.5)} Mins
                         </div>
                       </button>
@@ -721,10 +722,10 @@ export default function QuizPage() {
 
               {/* Blueprint Summary Card */}
               <div style={{
-                background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.25)',
+                background: 'rgba(110, 168, 163, 0.1)', border: '1px solid rgba(110, 168, 163, 0.3)',
                 borderRadius: '14px', padding: '1.25rem 1.5rem', marginBottom: '2rem'
               }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#a5b4fc', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--accent-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                   Quiz Blueprint Summary
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
@@ -775,7 +776,7 @@ export default function QuizPage() {
                   style={{
                     padding: '0.9rem 2rem', fontSize: '1rem', fontWeight: 800,
                     display: 'flex', alignItems: 'center', gap: '0.65rem',
-                    boxShadow: '0 0 25px rgba(99, 102, 241, 0.5)'
+                    boxShadow: '0 0 25px rgba(110, 168, 163, 0.5)'
                   }}
                 >
                   {loading ? (
@@ -804,17 +805,17 @@ export default function QuizPage() {
         }}>
           <div className="glass-panel animate-scale-up" style={{
             padding: '2rem 1.5rem', maxWidth: '460px', width: '100%', textAlign: 'center',
-            border: '1px solid rgba(99, 102, 241, 0.4)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.3)'
+            border: '1px solid rgba(110, 168, 163, 0.4)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(110, 168, 163, 0.3)'
           }}>
             <div style={{
               width: '64px', height: '64px', borderRadius: '50%',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              background: 'var(--accent-gradient)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               margin: '0 auto 1.25rem',
-              boxShadow: '0 0 30px rgba(99, 102, 241, 0.6)'
+              boxShadow: '0 0 30px rgba(110, 168, 163, 0.6)'
             }}>
-              <Brain size={32} color="#fff" />
+              <Brain size={32} color="#0e1312" />
             </div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff' }}>
               Synthesizing AI Quiz
@@ -825,8 +826,8 @@ export default function QuizPage() {
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
               padding: '0.45rem 1rem', borderRadius: '20px',
-              background: 'rgba(99, 102, 241, 0.15)', border: '1px solid rgba(99, 102, 241, 0.3)',
-              fontSize: '0.8rem', color: '#a5b4fc', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center'
+              background: 'rgba(110, 168, 163, 0.15)', border: '1px solid rgba(110, 168, 163, 0.3)',
+              fontSize: '0.8rem', color: 'var(--accent-tertiary)', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center'
             }}>
               <Sparkles size={15} /> Class {selectedGrade} • {currentSubjectObj?.name} • {difficulty.toUpperCase()}
             </div>
@@ -847,7 +848,7 @@ export default function QuizPage() {
               <span className={`badge badge-${currentQ.difficulty}`}>
                 {currentQ.difficulty}
               </span>
-              <span style={{ fontSize: '0.82rem', color: '#818cf8', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.82rem', color: 'var(--accent-primary)', fontWeight: 700 }}>
                 Class {selectedGrade} • {currentQ.chapter}
               </span>
             </div>
@@ -856,9 +857,9 @@ export default function QuizPage() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: '0.45rem',
               padding: '0.35rem 0.8rem', borderRadius: '8px',
-              background: timeRemaining < 60 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(99, 102, 241, 0.15)',
-              border: `1px solid ${timeRemaining < 60 ? '#ef4444' : '#818cf8'}`,
-              color: timeRemaining < 60 ? '#f87171' : '#818cf8', fontWeight: 700, fontSize: '0.88rem'
+              background: timeRemaining < 60 ? 'rgba(242, 121, 132, 0.2)' : 'rgba(110, 168, 163, 0.15)',
+              border: `1px solid ${timeRemaining < 60 ? '#f27984' : 'var(--accent-primary)'}`,
+              color: timeRemaining < 60 ? '#f27984' : 'var(--accent-primary)', fontWeight: 700, fontSize: '0.88rem'
             }}>
               <Timer size={16} />
               <span>{formatTimer(timeRemaining)}</span>
@@ -884,15 +885,16 @@ export default function QuizPage() {
                   style={{
                     display: 'flex', alignItems: 'center', gap: '0.85rem',
                     padding: '0.95rem 1.15rem', borderRadius: '12px', textAlign: 'left',
-                    background: isSelected ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.03)',
-                    border: isSelected ? '1px solid #818cf8' : '1px solid var(--border-subtle)',
+                    background: isSelected ? 'rgba(110, 168, 163, 0.25)' : 'rgba(255, 255, 255, 0.03)',
+                    border: isSelected ? '1px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
                     color: '#fff', cursor: 'pointer', transition: 'all 0.15s ease',
-                    boxShadow: isSelected ? '0 0 18px rgba(99, 102, 241, 0.3)' : 'none'
+                    boxShadow: isSelected ? '0 0 18px rgba(110, 168, 163, 0.3)' : 'none'
                   }}
                 >
                   <div style={{
                     width: '32px', height: '32px', borderRadius: '8px', flexShrink: 0,
                     background: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.08)',
+                    color: isSelected ? '#0e1312' : '#fff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontWeight: 800, fontSize: '0.9rem'
                   }}>
@@ -1025,9 +1027,9 @@ export default function QuizPage() {
                     {res.explanation && (
                       <div style={{
                         fontSize: '0.88rem', color: '#e2e8f0', lineHeight: 1.5,
-                        background: res.is_correct ? 'rgba(16, 185, 129, 0.08)' : 'rgba(99, 102, 241, 0.1)',
+                        background: res.is_correct ? 'rgba(82, 183, 136, 0.12)' : 'rgba(110, 168, 163, 0.1)',
                         padding: '0.85rem 1.15rem', borderRadius: '10px',
-                        borderLeft: `4px solid ${res.is_correct ? '#10b981' : '#818cf8'}`,
+                        borderLeft: `4px solid ${res.is_correct ? '#52b788' : 'var(--accent-primary)'}`,
                         border: '1px solid var(--border-subtle)'
                       }}>
                         <div style={{ fontWeight: 700, color: '#fff', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

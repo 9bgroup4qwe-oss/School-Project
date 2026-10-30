@@ -35,7 +35,7 @@ export default function DashboardPage({ onNavigate }) {
       {/* Welcome Hero */}
       <div className="glass-panel responsive-panel" style={{ marginBottom: '1.5rem', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '600px' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Academic Command Center
           </span>
           <h1 style={{ fontSize: 'clamp(1.6rem, 4.5vw, 2.25rem)', fontWeight: 800, margin: '0.5rem 0 1rem 0', lineHeight: 1.2 }}>
@@ -74,7 +74,7 @@ export default function DashboardPage({ onNavigate }) {
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
             <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Quizzes Taken</span>
-            <Award size={20} color="#818cf8" />
+            <Award size={20} color="var(--accent-primary)" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800 }}>{metrics.total_quizzes_completed}</div>
         </div>

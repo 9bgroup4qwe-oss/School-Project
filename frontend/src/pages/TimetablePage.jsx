@@ -303,7 +303,7 @@ export default function TimetablePage() {
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <button onClick={handleReallocate} disabled={reallocating} className="btn-secondary" style={{ borderColor: '#818cf8', color: '#818cf8' }}>
+          <button onClick={handleReallocate} disabled={reallocating} className="btn-secondary" style={{ borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)' }}>
             <RotateCcw size={16} />
             <span>{reallocating ? 'Reallocating...' : 'Recalibrate Remaining Topics'}</span>
           </button>
@@ -333,13 +333,13 @@ export default function TimetablePage() {
               setShowChatBot(!showChatBot);
             }}
             style={{
-              background: showChatBot ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.05)',
-              border: `1px solid ${showChatBot ? '#818cf8' : 'var(--border-subtle)'}`,
+              background: showChatBot ? 'rgba(110, 168, 163, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+              border: `1px solid ${showChatBot ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
               color: '#fff', borderRadius: '12px', padding: '0.75rem 1rem',
               display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontWeight: 600
             }}
           >
-            <Bot size={18} color="#818cf8" />
+            <Bot size={18} color="var(--accent-primary)" />
             <span>AI Copilot</span>
           </button>
         </div>
@@ -375,7 +375,7 @@ export default function TimetablePage() {
         <div className="glass-panel responsive-panel" style={{ padding: '1.5rem', overflowX: 'auto' }}>
           {calendarDates.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-              <Calendar size={36} color="#818cf8" style={{ marginBottom: '1rem', opacity: 0.7 }} />
+              <Calendar size={36} color="var(--accent-primary)" style={{ marginBottom: '1rem', opacity: 0.7 }} />
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem' }}>No Calendar Timetable Generated Yet</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                 Set your exam date and syllabus to generate specific day-by-day dates with topic tracking.
@@ -398,7 +398,7 @@ export default function TimetablePage() {
                     style={{
                       background: isExamDay ? 'rgba(239, 68, 68, 0.08)' : 'rgba(255, 255, 255, 0.02)',
                       borderRadius: '14px',
-                      border: `1px solid ${isExamDay ? '#ef4444' : isNearExam ? '#818cf8' : 'var(--border-subtle)'}`,
+                      border: `1px solid ${isExamDay ? '#ef4444' : isNearExam ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
                       padding: '1.25rem 1.5rem'
                     }}
                   >
@@ -411,7 +411,7 @@ export default function TimetablePage() {
                         <div style={{
                           padding: '0.35rem 0.75rem', borderRadius: '8px',
                           background: isExamDay ? '#ef4444' : 'var(--accent-primary)',
-                          color: '#fff', fontWeight: 800, fontSize: '0.85rem'
+                          color: '#0e1312', fontWeight: 800, fontSize: '0.85rem'
                         }}>
                           {dayData.day_name}
                         </div>
@@ -440,14 +440,14 @@ export default function TimetablePage() {
                             style={{
                               padding: '1rem',
                               borderRadius: '12px',
-                              background: isCompleted ? 'rgba(16, 185, 129, 0.12)' :
-                                          slot.type === 'exam' ? 'rgba(239, 68, 68, 0.15)' :
-                                          slot.type === 'class' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(99, 102, 241, 0.1)',
-                              border: isCompleted ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid var(--border-subtle)',
+                              background: isCompleted ? 'rgba(82, 183, 136, 0.15)' :
+                                          slot.type === 'exam' ? 'rgba(242, 121, 132, 0.15)' :
+                                          slot.type === 'class' ? 'rgba(78, 125, 122, 0.18)' : 'rgba(110, 168, 163, 0.15)',
+                              border: isCompleted ? '1px solid rgba(82, 183, 136, 0.4)' : '1px solid var(--border-subtle)',
                               borderLeft: `4px solid ${
-                                isCompleted ? '#10b981' :
-                                slot.type === 'exam' ? '#ef4444' :
-                                slot.type === 'class' ? '#3b82f6' : '#818cf8'
+                                isCompleted ? '#52b788' :
+                                slot.type === 'exam' ? '#f27984' :
+                                slot.type === 'class' ? '#4e7d7a' : 'var(--accent-primary)'
                               }`,
                               display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
                               transition: 'all 0.2s ease'
@@ -585,7 +585,7 @@ export default function TimetablePage() {
                 </div>
               ))}
               {chatLoading && (
-                <div style={{ fontSize: '0.8rem', color: '#818cf8', fontStyle: 'italic', paddingLeft: '0.5rem' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontStyle: 'italic', paddingLeft: '0.5rem' }}>
                   Recalibrating schedule with AI...
                 </div>
               )}
@@ -643,7 +643,7 @@ export default function TimetablePage() {
         }}>
           <div className="glass-panel animate-fade-in responsive-panel" style={{ width: '100%', maxWidth: '540px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Sparkles color="#818cf8" size={22} />
+              <Sparkles color="var(--accent-primary)" size={22} />
               AI Date-Based Timetable Generator
             </h3>
 
@@ -720,7 +720,7 @@ export default function TimetablePage() {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                    Evening Study: <span style={{ color: '#818cf8' }}>{hours}h / day</span>
+                    Evening Study: <span style={{ color: 'var(--accent-primary)' }}>{hours}h / day</span>
                   </label>
                   <input
                     type="range"
@@ -761,7 +761,7 @@ export default function TimetablePage() {
         }}>
           <div className="glass-panel animate-fade-in responsive-panel" style={{ width: '100%', maxWidth: '500px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Upload size={22} color="#818cf8" />
+              <Upload size={22} color="var(--accent-primary)" />
               Upload Syllabus or Exam Datesheet
             </h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
@@ -773,7 +773,7 @@ export default function TimetablePage() {
                 border: '2px dashed var(--border-subtle)', borderRadius: '12px',
                 padding: '2rem 1.5rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)'
               }}>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '0.75rem', color: '#818cf8' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '0.75rem', color: 'var(--accent-primary)' }}>
                   <FileText size={28} />
                   <Image size={28} />
                 </div>

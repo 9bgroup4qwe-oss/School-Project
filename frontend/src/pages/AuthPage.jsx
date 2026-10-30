@@ -64,7 +64,7 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem',
             boxShadow: 'var(--accent-glow)'
           }}>
-            <GraduationCap size={32} color="#fff" />
+            <GraduationCap size={32} color="#0e1312" />
           </div>
           <h1 style={{ fontSize: '1.85rem', fontWeight: 800, letterSpacing: '-0.025em', marginBottom: '0.5rem' }}>
             {isLogin ? 'Welcome Back' : 'Create Account'}
@@ -143,7 +143,7 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
                 setIsLogin(!isLogin);
                 setError('');
               }}
-              style={{ background: 'none', border: 'none', color: '#818cf8', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}
+              style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}
             >
               {isLogin ? 'Sign up' : 'Log in'}
             </button>

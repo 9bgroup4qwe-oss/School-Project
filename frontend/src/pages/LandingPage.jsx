@@ -26,19 +26,19 @@ export default function LandingPage({ onGetStarted }) {
       title: 'Effortless Study Scheduling',
       description: 'Auto-generates balanced weekly timetables tailored to your syllabus, exams, and free time.',
       icon: Calendar,
-      color: '#6366f1'
+      color: '#6ea8a3'
     },
     {
       title: 'Adaptive AI Quizzing',
       description: 'Generates questions on demand that target your weak areas, with step-by-step explanations.',
       icon: Brain,
-      color: '#a855f7'
+      color: '#4e7d7a'
     },
     {
       title: 'NCERT & CBSE Aligned',
       description: 'Content perfectly structured for school curriculum and board exams to guarantee concept clarity.',
       icon: BookOpen,
-      color: '#ec4899'
+      color: '#a6c7b9'
     }
   ];
 
@@ -92,7 +92,7 @@ export default function LandingPage({ onGetStarted }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        background: 'rgba(11, 15, 25, 0.8)',
+        background: 'rgba(14, 19, 18, 0.85)',
         backdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--border-subtle)',
         position: 'sticky', top: 0, zIndex: 50
@@ -103,10 +103,10 @@ export default function LandingPage({ onGetStarted }) {
             background: 'var(--accent-gradient)', display: 'flex', alignItems: 'center',
             justifyContent: 'center', boxShadow: 'var(--accent-glow)'
           }}>
-            <Sparkles size={22} color="#fff" />
+            <Sparkles size={22} color="#0e1312" />
           </div>
           <span style={{ fontSize: '1.35rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#fff' }}>
-            Grow<span style={{ color: '#818cf8' }}>MyIQ</span>
+            Grow<span style={{ color: 'var(--accent-primary)' }}>MyIQ</span>
           </span>
         </div>
 
@@ -136,8 +136,8 @@ export default function LandingPage({ onGetStarted }) {
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
           padding: '0.4rem 1rem', borderRadius: '9999px',
-          background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.25)',
-          color: '#818cf8', fontSize: '0.85rem', fontWeight: 700, marginBottom: '1.75rem'
+          background: 'rgba(110, 168, 163, 0.12)', border: '1px solid rgba(110, 168, 163, 0.3)',
+          color: 'var(--accent-primary)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '1.75rem'
         }}>
           <Zap size={15} />
           <span>Next-Generation AI Study Companion</span>
@@ -223,7 +223,7 @@ export default function LandingPage({ onGetStarted }) {
             <thead>
               <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                 <th style={{ padding: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>Capability</th>
-                <th style={{ padding: '1rem', color: '#818cf8', fontWeight: 700, textAlign: 'center' }}>GrowMyIQ</th>
+                <th style={{ padding: '1rem', color: 'var(--accent-primary)', fontWeight: 700, textAlign: 'center' }}>GrowMyIQ</th>
                 <th style={{ padding: '1rem', color: 'var(--text-subtle)', fontWeight: 600, textAlign: 'center' }}>Traditional Method</th>
               </tr>
             </thead>
@@ -261,7 +261,7 @@ export default function LandingPage({ onGetStarted }) {
               </p>
               <div>
                 <div style={{ fontWeight: 700, color: '#fff' }}>{t.name}</div>
-                <div style={{ fontSize: '0.8rem', color: '#818cf8' }}>{t.role}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--accent-primary)' }}>{t.role}</div>
               </div>
             </div>
           ))}
