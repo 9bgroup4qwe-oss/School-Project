@@ -129,6 +129,7 @@ CURRICULUM_BACKUP_POOL: Dict[str, List[Dict[str, Any]]] = {
         }
     ]
 }
+# No pre-set questions pool. Every quiz must be generated dynamically by the LLM.
 
 def get_fallback_questions(subject: str, grade: int, count: int) -> List[Dict[str, Any]]:
     sub_lower = subject.lower()
@@ -156,10 +157,12 @@ async def generate_quiz(
     time_limit_seconds = req.question_count * 90
 
     chapters_str = ", ".join(req.chapters) if req.chapters else "Core NCERT Curriculum"
+    chapters_str = ", ".join(req.chapters) if req.chapters else "Full NCERT Curriculum"
 
     system_prompt = (
         f"You are a senior NCERT/CBSE curriculum subject matter expert and examiner for Class {grade_val}.\n"
         f"Your task is to generate {req.question_count} high-quality, concept-testing multiple choice questions "
+        f"Your task is to generate {req.question_count} brand-new, original, concept-testing multiple choice questions "
         f"strictly tailored to Class {grade_val} {req.subject}.\n\n"
         "RULES:\n"
         "1. Every question must directly test concepts from the specified syllabus/chapters.\n"
@@ -167,6 +170,13 @@ async def generate_quiz(
         "3. Specify 'correct_answer' as an integer index (0, 1, 2, or 3) into the options list.\n"
         "4. Include an in-depth 'explanation' explaining WHY the correct option is right and highlighting the underlying NCERT rule/formula.\n"
         "5. Return ONLY a valid JSON object matching this schema:\n"
+        "1. Every question must be original and directly test deep conceptual understanding and problem-solving for the specified chapters.\n"
+        "2. NEVER repeat the same standard questions or generic questions.\n"
+        "3. Provide exactly 4 distinct, plausible options.\n"
+        "4. Format all math equations and symbols using clean Unicode (e.g. x², α, β, √, ±, θ, 1/2) or plain text notation. Do not write raw LaTeX backslash commands.\n"
+        "5. Specify 'correct_answer' as an integer index (0, 1, 2, or 3) pointing to the correct option in 'options'.\n"
+        "6. Include an in-depth 'explanation' explaining WHY the correct option is right and highlighting the underlying NCERT rule, law, formula, or concept.\n"
+        "7. Return ONLY a valid JSON object matching this schema:\n"
         "{\n"
         '  "questions": [\n'
         '    {\n'
@@ -181,12 +191,14 @@ async def generate_quiz(
     )
 
     user_prompt = (
+        f"Generation Seed: {uuid.uuid4().hex[:8]}\n"
         f"Grade: Class {grade_val} (NCERT/CBSE)\n"
         f"Subject: {req.subject}\n"
         f"Target Chapters: {chapters_str}\n"
         f"Difficulty: {req.difficulty}\n"
         f"Number of Questions: {req.question_count}\n"
         f"Please generate {req.question_count} authentic questions now."
+        f"Generate {req.question_count} fresh, unique multiple choice questions now."
     )
 
     source = "ai"
@@ -194,6 +206,7 @@ async def generate_quiz(
 
     try:
         data = await call_llm_json(prompt=user_prompt, system_prompt=system_prompt)
+        data = await call_llm_json(prompt=user_prompt, system_prompt=system_prompt, temperature=0.7)
         candidate_list = data.get("questions", [])
         if isinstance(candidate_list, list) and len(candidate_list) > 0:
             raw_questions = candidate_list[:req.question_count]
@@ -203,6 +216,11 @@ async def generate_quiz(
         logger.error(f"LLM quiz generation failed: {e}. Activating curriculum backup.")
         source = "curriculum-fallback"
         raw_questions = get_fallback_questions(req.subject, grade_val, req.question_count)
+        logger.error(f"LLM quiz generation failed: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=502,
+            detail=f"OpenAI Quiz Generation failed: {str(e)}. Please ensure your OPENAI_API_KEY is configured in backend/.env"
+        )
 
     questions_for_client: List[QuestionOut] = []
     questions_cache: Dict[str, Any] = {}
@@ -270,6 +288,7 @@ async def generate_quiz(
         time_limit_seconds=time_limit_seconds,
         questions=questions_for_client,
         source=source
+        source="ai"
     )
 
 

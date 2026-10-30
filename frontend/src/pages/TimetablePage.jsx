@@ -204,6 +204,22 @@ export default function TimetablePage() {
       });
 
       setChatMessages(prev => [...prev, { role: 'assistant', content: res.reply }]);
+
+      if (res.updated_timetable) {
+        setActiveTimetable(res.updated_timetable);
+        if (res.updated_timetable.exam_date) {
+          setExamDate(res.updated_timetable.exam_date);
+        }
+      } else if (res.suggested_calendar_update) {
+        setActiveTimetable(prev => ({
+          ...prev,
+          calendar_schedule: res.suggested_calendar_update,
+          exam_date: res.exam_date || prev?.exam_date
+        }));
+        if (res.exam_date) {
+          setExamDate(res.exam_date);
+        }
+      }
     } catch (err) {
       setChatMessages(prev => [
         ...prev,

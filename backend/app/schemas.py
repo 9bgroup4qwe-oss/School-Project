@@ -143,3 +143,5 @@ class TimetableChatResponse(BaseModel):
     reply: str
     suggested_schedule_update: Optional[Dict[str, Any]] = None
     suggested_calendar_update: Optional[Dict[str, Any]] = None
+    updated_timetable: Optional[Dict[str, Any]] = None
+    exam_date: Optional[str] = None

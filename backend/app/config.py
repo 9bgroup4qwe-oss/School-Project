@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY: str = ""
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-1.5-flash"
     LLM_MODEL: str = "nvidia/nemotron-3.5-lightning:free"
     LLM_TIMEOUT_SECONDS: float = 45.0
 
