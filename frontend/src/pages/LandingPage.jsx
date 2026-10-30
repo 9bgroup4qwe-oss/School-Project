@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { soundEffects } from '../utils/audio';
 import {
   Sparkles,
   Brain,
@@ -111,7 +112,10 @@ export default function LandingPage({ onGetStarted }) {
 
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <button
-            onClick={onGetStarted}
+            onClick={() => {
+              soundEffects.playNextStep();
+              onGetStarted();
+            }}
             className="btn-primary"
             style={{ padding: '0.6rem 1.25rem', fontSize: '0.9rem' }}
           >
@@ -162,7 +166,10 @@ export default function LandingPage({ onGetStarted }) {
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <button
-            onClick={onGetStarted}
+            onClick={() => {
+              soundEffects.playNextStep();
+              onGetStarted();
+            }}
             className="btn-primary"
             style={{ padding: '0.9rem 2rem', fontSize: '1.05rem' }}
           >
@@ -268,24 +275,30 @@ export default function LandingPage({ onGetStarted }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {faqs.map((f, idx) => (
-            <div
-              key={idx}
-              className="glass-panel"
-              style={{ padding: '1.25rem', cursor: 'pointer' }}
-              onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
-                <span>{f.q}</span>
-                <ChevronRight size={18} style={{ transform: activeFaq === idx ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+          {faqs.map((f, idx) => {
+            const isOpen = activeFaq === idx;
+            return (
+              <div
+                key={idx}
+                className="glass-panel"
+                style={{ padding: '1.25rem', cursor: 'pointer' }}
+                onClick={() => {
+                  soundEffects.playToggle(!isOpen);
+                  setActiveFaq(isOpen ? null : idx);
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
+                  <span>{f.q}</span>
+                  <ChevronRight size={18} style={{ transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+                </div>
+                {isOpen && (
+                  <p style={{ marginTop: '0.75rem', color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5, borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem' }}>
+                    {f.a}
+                  </p>
+                )}
               </div>
-              {activeFaq === idx && (
-                <p style={{ marginTop: '0.75rem', color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5, borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem' }}>
-                  {f.a}
-                </p>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

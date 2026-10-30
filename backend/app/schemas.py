@@ -1,5 +1,5 @@
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 # Base Error Model
 class ErrorDetail(BaseModel):
@@ -103,15 +103,17 @@ class ToggleTopicRequest(BaseModel):
 
 class TimetableResponse(BaseModel):
     id: str
-    title: str
+    title: str = "Grow My IQ AI Study Roadmap"
     description: Optional[str] = None
-    is_active: bool
+    is_active: bool = True
     schedule: Dict[str, Any] = Field(default_factory=dict)
     calendar_schedule: Optional[Dict[str, Any]] = None
     exam_date: Optional[str] = None
     days_until_exam: Optional[int] = None
     completion_stats: Optional[Dict[str, Any]] = None
-    created_at: str
+    created_at: str = "Just now"
+
+    model_config = ConfigDict(extra="ignore")
 
 class TextExtractResponse(BaseModel):
     filename: str

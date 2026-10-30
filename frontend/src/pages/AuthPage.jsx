@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { authService } from '../services/api';
+import { soundEffects } from '../utils/audio';
 import { GraduationCap, ArrowRight, Lock, Mail, AlertCircle, Sparkles } from 'lucide-react';
 
 export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
@@ -11,6 +12,7 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    soundEffects.playSelect();
     setError('');
     setLoading(true);
 
@@ -23,9 +25,11 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
       }
       
       if (session) {
+        soundEffects.playScoreTriumph();
         onLoginSuccess(session);
       }
     } catch (err) {
+      soundEffects.playBack();
       setError(err.message || 'Authentication error');
     } finally {
       setLoading(false);
@@ -37,7 +41,10 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
       {/* Back button */}
       {onBackToLanding && (
         <button
-          onClick={onBackToLanding}
+          onClick={() => {
+            soundEffects.playBack();
+            onBackToLanding();
+          }}
           style={{
             position: 'absolute', top: '2rem', left: '2rem',
             background: 'none', border: 'none', color: 'var(--text-muted)',
@@ -130,7 +137,11 @@ export default function AuthPage({ onLoginSuccess, onBackToLanding }) {
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
             {isLogin ? "Don't have an account yet?" : "Already have an account?"}{' '}
             <button
-              onClick={() => { setIsLogin(!isLogin); setError(''); }}
+              onClick={() => {
+                soundEffects.playSelect();
+                setIsLogin(!isLogin);
+                setError('');
+              }}
               style={{ background: 'none', border: 'none', color: '#818cf8', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}
             >
               {isLogin ? 'Sign up' : 'Log in'}

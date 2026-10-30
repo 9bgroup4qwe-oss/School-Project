@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../services/api';
+import { soundEffects } from '../utils/audio';
 import {
   Calendar, Plus, Sparkles, FileText, Upload, Clock, Check,
   MessageSquare, Send, Bot, User, X, ChevronRight, AlertTriangle,
@@ -85,6 +86,7 @@ export default function TimetablePage() {
 
   const handleGenerate = async (e) => {
     e.preventDefault();
+    soundEffects.playStartQuiz();
     setGenerating(true);
     try {
       const subList = subjects.split(',').map(s => s.trim()).filter(Boolean);
@@ -103,6 +105,7 @@ export default function TimetablePage() {
       setTimetables(prev => [created, ...prev]);
       setActiveTimetable(created);
       setShowGenerateModal(false);
+      soundEffects.playNotification();
 
       setChatMessages(prev => [
         ...prev,
@@ -121,6 +124,7 @@ export default function TimetablePage() {
   const handleSyllabusUpload = async (e) => {
     e.preventDefault();
     if (!uploadFile) return;
+    soundEffects.playSelect();
     setUploading(true);
     setUploadSuccessMsg('');
 
@@ -137,6 +141,7 @@ export default function TimetablePage() {
         setSubjects(res.subject);
       }
 
+      soundEffects.playNotification();
       setUploadSuccessMsg(
         `Extracted ${res.topics.length} topics from ${res.filename} (${res.file_type})! ${
           res.detected_exam_date ? `Detected Exam Date: ${res.detected_exam_date}` : ''
@@ -158,6 +163,7 @@ export default function TimetablePage() {
   const handleToggleTopic = async (timetableId, slotId, currentCompleted) => {
     try {
       const newStatus = !currentCompleted;
+      soundEffects.playToggle(newStatus);
       const updated = await api.toggleTopicCompletion(timetableId, slotId, newStatus);
       setActiveTimetable(updated);
     } catch (err) {
@@ -167,10 +173,12 @@ export default function TimetablePage() {
 
   const handleReallocate = async () => {
     if (!activeTimetable) return;
+    soundEffects.playNextStep();
     setReallocating(true);
     try {
       const updated = await api.reallocateTimetable(activeTimetable.id);
       setActiveTimetable(updated);
+      soundEffects.playNotification();
       setChatMessages(prev => [
         ...prev,
         {
@@ -190,6 +198,7 @@ export default function TimetablePage() {
     if (!chatInput.trim() || chatLoading) return;
 
     const userText = chatInput.trim();
+    soundEffects.playSelect();
     setChatInput('');
     const newMsgList = [...chatMessages, { role: 'user', content: userText }];
     setChatMessages(newMsgList);
@@ -203,6 +212,7 @@ export default function TimetablePage() {
         exam_date: examDate
       });
 
+      soundEffects.playNotification();
       setChatMessages(prev => [...prev, { role: 'assistant', content: res.reply }]);
 
       if (res.updated_timetable) {
@@ -259,7 +269,10 @@ export default function TimetablePage() {
             </div>
           </div>
           <button
-            onClick={() => setShowGenerateModal(true)}
+            onClick={() => {
+              soundEffects.playNextStep();
+              setShowGenerateModal(true);
+            }}
             className="btn-primary"
             style={{ padding: '0.45rem 1rem', fontSize: '0.8rem', background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' }}
           >
@@ -294,16 +307,31 @@ export default function TimetablePage() {
             <RotateCcw size={16} />
             <span>{reallocating ? 'Reallocating...' : 'Recalibrate Remaining Topics'}</span>
           </button>
-          <button onClick={() => setShowUploadModal(true)} className="btn-secondary">
+          <button
+            onClick={() => {
+              soundEffects.playNextStep();
+              setShowUploadModal(true);
+            }}
+            className="btn-secondary"
+          >
             <Upload size={16} />
             <span>Upload Syllabus (.md / Pic / PDF)</span>
           </button>
-          <button onClick={() => setShowGenerateModal(true)} className="btn-primary">
+          <button
+            onClick={() => {
+              soundEffects.playNextStep();
+              setShowGenerateModal(true);
+            }}
+            className="btn-primary"
+          >
             <Sparkles size={16} />
             <span>Generate Date Schedule</span>
           </button>
           <button
-            onClick={() => setShowChatBot(!showChatBot)}
+            onClick={() => {
+              soundEffects.playToggle(!showChatBot);
+              setShowChatBot(!showChatBot);
+            }}
             style={{
               background: showChatBot ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.05)',
               border: `1px solid ${showChatBot ? '#818cf8' : 'var(--border-subtle)'}`,
@@ -522,7 +550,10 @@ export default function TimetablePage() {
                 </div>
               </div>
               <button
-                onClick={() => setShowChatBot(false)}
+                onClick={() => {
+                  soundEffects.playBack();
+                  setShowChatBot(false);
+                }}
                 style={{ background: 'none', border: 'none', color: 'var(--text-subtle)', cursor: 'pointer' }}
               >
                 <X size={18} />
@@ -569,7 +600,10 @@ export default function TimetablePage() {
               {['Move Friday study to Saturday', 'Exam moved to Nov 18', 'School ends at 2:30 pm'].map((qp, qIdx) => (
                 <button
                   key={qIdx}
-                  onClick={() => setChatInput(qp)}
+                  onClick={() => {
+                    soundEffects.playSelect();
+                    setChatInput(qp);
+                  }}
                   style={{
                     background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border-subtle)',
                     borderRadius: '8px', padding: '0.25rem 0.6rem', fontSize: '0.75rem',
@@ -703,7 +737,14 @@ export default function TimetablePage() {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-                <button type="button" onClick={() => setShowGenerateModal(false)} className="btn-secondary">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundEffects.playBack();
+                    setShowGenerateModal(false);
+                  }}
+                  className="btn-secondary"
+                >
                   Cancel
                 </button>
                 <button type="submit" disabled={generating} className="btn-primary">
@@ -761,7 +802,14 @@ export default function TimetablePage() {
               )}
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
-                <button type="button" onClick={() => setShowUploadModal(false)} className="btn-secondary">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundEffects.playBack();
+                    setShowUploadModal(false);
+                  }}
+                  className="btn-secondary"
+                >
                   Cancel
                 </button>
                 <button type="submit" disabled={uploading} className="btn-primary">

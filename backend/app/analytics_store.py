@@ -5,7 +5,10 @@ import time
 import hashlib
 from typing import Dict, Any, List, Optional
 
-DB_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+if os.environ.get("VERCEL"):
+    DB_DIR = "/tmp/data"
+else:
+    DB_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 DB_PATH = os.path.join(DB_DIR, "growmyiq.db")
 
 def init_db():

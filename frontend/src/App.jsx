@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { authService } from './services/api';
+import { soundEffects } from './utils/audio';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import QuizPage from './pages/QuizPage';
 import TimetablePage from './pages/TimetablePage';
-import { LayoutDashboard, Brain, Calendar, LogOut, Sparkles } from 'lucide-react';
+import { LayoutDashboard, Brain, Calendar, LogOut, Sparkles, Volume2, VolumeX } from 'lucide-react';
 
 export default function App() {
   const [session, setSession] = useState(null);
   const [currentPage, setCurrentPage] = useState('landing');
   const [loading, setLoading] = useState(true);
+  const [soundOn, setSoundOn] = useState(soundEffects.isEnabled());
 
   useEffect(() => {
     // Check if user is already logged in
@@ -23,13 +25,25 @@ export default function App() {
     });
   }, []);
 
+  const handleToggleSound = () => {
+    const newState = soundEffects.toggleSound();
+    setSoundOn(newState);
+  };
+
+  const handleNavigate = (page) => {
+    soundEffects.playSelect();
+    setCurrentPage(page);
+  };
+
   const handleLogout = async () => {
+    soundEffects.playBack();
     await authService.signOut();
     setSession(null);
     setCurrentPage('landing');
   };
 
   const handleLoginSuccess = (sess) => {
+    soundEffects.playScoreTriumph();
     setSession(sess);
     setCurrentPage('dashboard');
   };
@@ -68,7 +82,7 @@ export default function App() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }} onClick={() => setCurrentPage('dashboard')}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }} onClick={() => handleNavigate('dashboard')}>
             <div style={{
               width: '36px', height: '36px', borderRadius: '10px',
               background: 'var(--accent-gradient)', display: 'flex', alignItems: 'center',
@@ -76,7 +90,7 @@ export default function App() {
             }}>
               <Sparkles size={20} color="#fff" />
             </div>
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#fff' }}>
+            <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
               Grow<span style={{ color: '#818cf8' }}>MyIQ</span>
             </span>
           </div>
@@ -84,7 +98,7 @@ export default function App() {
           {/* Navigation Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <button
-              onClick={() => setCurrentPage('dashboard')}
+              onClick={() => handleNavigate('dashboard')}
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
@@ -99,7 +113,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setCurrentPage('quiz')}
+              onClick={() => handleNavigate('quiz')}
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
@@ -114,7 +128,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setCurrentPage('timetable')}
+              onClick={() => handleNavigate('timetable')}
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.5rem 1rem', borderRadius: '10px',
@@ -129,9 +143,28 @@ export default function App() {
             </button>
           </div>
 
-          {/* User action */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-subtle)' }}>
+          {/* User action & Global Sound Toggle */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button
+              onClick={handleToggleSound}
+              style={{
+                background: soundOn ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                border: soundOn ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid var(--border-subtle)',
+                color: soundOn ? '#818cf8' : 'var(--text-subtle)',
+                borderRadius: '8px', padding: '0.45rem 0.65rem',
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+              title={soundOn ? 'Sound Effects Enabled (Click to mute)' : 'Sound Effects Muted (Click to enable)'}
+            >
+              {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              <span style={{ display: 'none', '@media (min-width: 640px)': { display: 'inline' } }}>
+                {soundOn ? 'SFX On' : 'SFX Off'}
+              </span>
+            </button>
+
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {session.user?.email || 'Student'}
             </span>
             <button
@@ -149,7 +182,7 @@ export default function App() {
 
       {/* Main Page Content */}
       <main style={{ flex: 1 }}>
-        {currentPage === 'dashboard' && <DashboardPage onNavigate={setCurrentPage} />}
+        {currentPage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
         {currentPage === 'quiz' && <QuizPage />}
         {currentPage === 'timetable' && <TimetablePage />}
       </main>

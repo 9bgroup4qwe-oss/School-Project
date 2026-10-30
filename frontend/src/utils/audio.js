@@ -2,7 +2,16 @@
 // 100% synthesized in-browser: zero external mp3 files, zero latency, zero CORS issues.
 
 let audioCtx = null;
+const SOUND_STORAGE_KEY = 'growmyiq_sound_enabled';
+
+// Initialize from localStorage (default: enabled)
 let soundEnabled = true;
+try {
+  const saved = localStorage.getItem(SOUND_STORAGE_KEY);
+  if (saved !== null) {
+    soundEnabled = saved === 'true';
+  }
+} catch (_) {}
 
 function getAudioContext() {
   if (!audioCtx && typeof window !== 'undefined') {
@@ -19,15 +28,26 @@ function getAudioContext() {
 
 export const soundEffects = {
   isEnabled: () => soundEnabled,
+  
   toggleSound: () => {
     soundEnabled = !soundEnabled;
+    try {
+      localStorage.setItem(SOUND_STORAGE_KEY, String(soundEnabled));
+    } catch (_) {}
+    if (soundEnabled) {
+      soundEffects.playSelect();
+    }
     return soundEnabled;
   },
+
   setSoundEnabled: (val) => {
-    soundEnabled = val;
+    soundEnabled = !!val;
+    try {
+      localStorage.setItem(SOUND_STORAGE_KEY, String(soundEnabled));
+    } catch (_) {}
   },
 
-  // 1. Crisp high-tech tactile click (selection of grade / subject / options)
+  // 1. Crisp high-tech tactile click (selection of tabs, buttons, chips, menu options)
   playSelect: () => {
     if (!soundEnabled) return;
     try {
@@ -52,7 +72,7 @@ export const soundEffects = {
     } catch (_) {}
   },
 
-  // 2. Satisfying bubble/checkbox pop (selecting chapters)
+  // 2. Satisfying bubble/checkbox pop (toggling topics finished, selecting syllabus chapters)
   playToggle: (active = true) => {
     if (!soundEnabled) return;
     try {
@@ -79,7 +99,7 @@ export const soundEffects = {
     } catch (_) {}
   },
 
-  // 3. Smooth forward step transition chime
+  // 3. Smooth forward step transition chime (next question, next wizard step, modal open)
   playNextStep: () => {
     if (!soundEnabled) return;
     try {
@@ -125,7 +145,7 @@ export const soundEffects = {
     } catch (_) {}
   },
 
-  // 5. Epic triumphant chord / start quiz power-up
+  // 5. Epic triumphant chord / start quiz / launch AI schedule power-up
   playStartQuiz: () => {
     if (!soundEnabled) return;
     try {
@@ -168,6 +188,27 @@ export const soundEffects = {
         osc.stop(now + idx * 0.08 + 0.35);
       });
     } catch (_) {}
+  },
+
+  // 7. Soft modern notification chime (when AI Copilot responds or syllabus upload succeeds)
+  playNotification: () => {
+    if (!soundEnabled) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      [659.25, 880, 1174.66].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+        gain.gain.setValueAtTime(0.12, now + idx * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.07);
+        osc.stop(now + idx * 0.07 + 0.25);
+      });
+    } catch (_) {}
   }
 };
-

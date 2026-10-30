@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { soundEffects } from '../utils/audio';
 import { Award, Brain, Calendar, AlertTriangle, ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function DashboardPage({ onNavigate }) {
@@ -44,11 +45,23 @@ export default function DashboardPage({ onNavigate }) {
             Generate adaptive practice tests, review weak spots, and optimize your study schedule with real-time AI insights.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <button onClick={() => onNavigate('quiz')} className="btn-primary">
+            <button
+              onClick={() => {
+                soundEffects.playNextStep();
+                onNavigate('quiz');
+              }}
+              className="btn-primary"
+            >
               <Brain size={18} />
               <span>Take a Practice Quiz</span>
             </button>
-            <button onClick={() => onNavigate('timetable')} className="btn-secondary">
+            <button
+              onClick={() => {
+                soundEffects.playSelect();
+                onNavigate('timetable');
+              }}
+              className="btn-secondary"
+            >
               <Calendar size={18} />
               <span>View Timetable</span>
             </button>

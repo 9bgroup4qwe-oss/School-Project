@@ -363,7 +363,20 @@ async def list_timetables(
     }
     save_user_timetable(user.user_id, initial_tt)
 
-    return [TimetableResponse(**initial_tt)]
+    return [
+        TimetableResponse(
+            id=initial_tt["id"],
+            title=initial_tt.get("title", "Grow My IQ AI Study Roadmap"),
+            description=initial_tt.get("description", "Dynamic calendar roadmap leading to your exam"),
+            is_active=bool(initial_tt.get("is_active", True)),
+            schedule=initial_tt.get("schedule", {}),
+            calendar_schedule=initial_tt.get("calendar_schedule"),
+            exam_date=initial_tt.get("exam_date"),
+            days_until_exam=initial_tt.get("days_until_exam"),
+            completion_stats=initial_tt.get("completion_stats"),
+            created_at=initial_tt.get("created_at", "Just now")
+        )
+    ]
 
 
 @router.post("/generate", response_model=TimetableResponse)
@@ -418,7 +431,18 @@ async def generate_ai_timetable(
     }
 
     save_user_timetable(user.user_id, result_data)
-    return TimetableResponse(**result_data)
+    return TimetableResponse(
+        id=result_data["id"],
+        title=result_data.get("title", f"Class {req.grade or 10} {' & '.join(subjects[:2])} AI Roadmap"),
+        description=result_data.get("description", f"AI study plan leading to {cal_data['exam_date']}"),
+        is_active=bool(result_data.get("is_active", True)),
+        schedule=result_data.get("schedule", {}),
+        calendar_schedule=result_data.get("calendar_schedule"),
+        exam_date=result_data.get("exam_date"),
+        days_until_exam=result_data.get("days_until_exam"),
+        completion_stats=result_data.get("completion_stats"),
+        created_at=result_data.get("created_at", "Just now")
+    )
 
 
 @router.post("/{timetable_id}/toggle-topic", response_model=TimetableResponse)
@@ -444,7 +468,18 @@ async def toggle_topic_completion(
             detail=f"Timetable '{timetable_id}' not found."
         )
 
-    return TimetableResponse(**updated_tt)
+    return TimetableResponse(
+        id=updated_tt.get("id", timetable_id),
+        title=updated_tt.get("title", "Grow My IQ AI Study Roadmap"),
+        description=updated_tt.get("description", "Dynamic calendar roadmap leading to your exam"),
+        is_active=bool(updated_tt.get("is_active", True)),
+        schedule=updated_tt.get("schedule", {}),
+        calendar_schedule=updated_tt.get("calendar_schedule"),
+        exam_date=updated_tt.get("exam_date"),
+        days_until_exam=updated_tt.get("days_until_exam"),
+        completion_stats=updated_tt.get("completion_stats"),
+        created_at=updated_tt.get("created_at", "Just now")
+    )
 
 
 @router.post("/{timetable_id}/reallocate", response_model=TimetableResponse)
@@ -460,9 +495,16 @@ async def reallocate_timetable(
     saved_tt = get_user_timetable(user.user_id, timetable_id)
     if not saved_tt:
         active_list = await list_timetables(user)
-        saved_tt = get_user_timetable(user.user_id, active_list[0].id)
+        if active_list:
+            saved_tt = get_user_timetable(user.user_id, active_list[0].id)
 
-    calendar_schedule = saved_tt.get("calendar_schedule", {})
+    if not saved_tt:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Timetable '{timetable_id}' not found."
+        )
+
+    calendar_schedule = saved_tt.get("calendar_schedule") or {}
     exam_date_str = saved_tt.get("exam_date")
     
     # Identify completed topics and unfinished topics
@@ -472,7 +514,7 @@ async def reallocate_timetable(
     today_iso = datetime.date.today().isoformat()
 
     for date_key, day_info in sorted(calendar_schedule.items()):
-        slots = day_info.get("slots", [])
+        slots = day_info.get("slots", []) if isinstance(day_info, dict) else []
         for slot in slots:
             topic = slot.get("topic")
             if slot.get("type") in ["study", "revision", "exam"]:
@@ -513,7 +555,7 @@ async def reallocate_timetable(
         if date_key < today_iso:
             continue
 
-        slots = day_info.get("slots", [])
+        slots = day_info.get("slots", []) if isinstance(day_info, dict) else []
         for slot in slots:
             if slot.get("type") in ["study", "revision"] and not slot.get("completed"):
                 new_topic = reallocation_pool[pool_idx % len(reallocation_pool)]
@@ -525,7 +567,8 @@ async def reallocate_timetable(
     total_slots = 0
     completed_slots = 0
     for date_key, day_info in calendar_schedule.items():
-        for s in day_info.get("slots", []):
+        slots_list = day_info.get("slots", []) if isinstance(day_info, dict) else []
+        for s in slots_list:
             if s.get("type") in ["study", "revision", "exam", "practice"]:
                 total_slots += 1
                 if s.get("completed"):
@@ -540,7 +583,18 @@ async def reallocate_timetable(
     saved_tt["description"] = f"Recalibrated on {datetime.date.today().strftime('%b %d')}: {len(completed_topics)} topics completed, {len(unfinished_topics)} remaining."
 
     save_user_timetable(user.user_id, saved_tt)
-    return TimetableResponse(**saved_tt)
+    return TimetableResponse(
+        id=saved_tt.get("id", timetable_id),
+        title=saved_tt.get("title", "Grow My IQ AI Study Roadmap"),
+        description=saved_tt.get("description", "Recalibrated roadmap"),
+        is_active=bool(saved_tt.get("is_active", True)),
+        schedule=saved_tt.get("schedule", {}),
+        calendar_schedule=saved_tt.get("calendar_schedule"),
+        exam_date=saved_tt.get("exam_date"),
+        days_until_exam=saved_tt.get("days_until_exam"),
+        completion_stats=saved_tt.get("completion_stats"),
+        created_at=saved_tt.get("created_at", "Just now")
+    )
 
 
 @router.post("/extract-syllabus", response_model=SyllabusExtractResponse)

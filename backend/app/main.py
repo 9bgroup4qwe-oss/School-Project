@@ -18,12 +18,13 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={"error": {"code": "INTERNAL_SERVER_ERROR", "message": str(exc)}}
     )
 
-# Strict CORS: never use wildcard '*' with allow_credentials=True!
+# Strict CORS: supports local dev + all Vercel deployments
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -33,5 +34,6 @@ app.include_router(timetable.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
 
 @app.get("/health")
+@app.get("/api/health")
 async def health_check():
     return {"status": "ok", "service": "Grow My IQ Core API", "version": "2.0.0"}
