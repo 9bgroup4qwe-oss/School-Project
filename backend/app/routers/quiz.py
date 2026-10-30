@@ -14,137 +14,6 @@ from app.analytics_store import save_quiz_session, get_quiz_session, record_quiz
 router = APIRouter(prefix="/quiz", tags=["Quiz"])
 logger = logging.getLogger(__name__)
 
-# Subject & Grade specific verified NCERT question pool used ONLY if external AI network is completely unreachable
-CURRICULUM_BACKUP_POOL: Dict[str, List[Dict[str, Any]]] = {
-    "science_10": [
-        {
-            "question_text": "An object is placed at 20 cm in front of a concave mirror of focal length 15 cm. What is the nature and position of the image?",
-            "options": ["Real, inverted, in front of mirror", "Virtual, erect, behind mirror", "Real, erect, at focus", "Virtual, inverted, at center of curvature"],
-            "correct_answer": 0,
-            "explanation": "Since object distance u = -20 cm lies between the focus (f = -15 cm) and center of curvature (C = -30 cm), a concave mirror forms a real, inverted and magnified image beyond C in front of the mirror.",
-            "chapter": "Light - Reflection and Refraction",
-            "difficulty": "medium"
-        },
-        {
-            "question_text": "What is the absolute refractive index of a medium if the speed of light in it is 2 × 10^8 m/s? (Speed of light in vacuum c = 3 × 10^8 m/s)",
-            "options": ["1.33", "1.5", "1.75", "2.0"],
-            "correct_answer": 1,
-            "explanation": "Refractive index n = c / v = (3 × 10^8) / (2 × 10^8) = 1.5. This matches glass.",
-            "chapter": "Light - Reflection and Refraction",
-            "difficulty": "easy"
-        },
-        {
-            "question_text": "Which part of the nephron is primarily responsible for the ultrafiltration of blood under pressure?",
-            "options": ["Bowman's Capsule and Glomerulus", "Loop of Henle", "Distal Convoluted Tubule", "Collecting Duct"],
-            "correct_answer": 0,
-            "explanation": "High hydrostatic pressure in the glomerulus forces water and small solutes through the podocytes of Bowman's capsule, initiating urine formation.",
-            "chapter": "Life Processes",
-            "difficulty": "medium"
-        },
-        {
-            "question_text": "What happens when dilute hydrochloric acid is added to iron filings?",
-            "options": ["Hydrogen gas and iron chloride are produced", "Chlorine gas and iron hydroxide are produced", "No reaction takes place", "Iron salt and water are produced"],
-            "correct_answer": 0,
-            "explanation": "Fe (s) + 2HCl (aq) -> FeCl2 (aq) + H2 (g). Iron displaces hydrogen from acid to liberate hydrogen gas and form ferrous chloride.",
-            "chapter": "Chemical Reactions and Equations",
-            "difficulty": "easy"
-        },
-        {
-            "question_text": "The functional group present in propanone (CH3-CO-CH3) is:",
-            "options": ["Aldehyde (-CHO)", "Ketone (>C=O)", "Carboxylic Acid (-COOH)", "Alcohol (-OH)"],
-            "correct_answer": 1,
-            "explanation": "Propanone is a ketone containing the carbonyl group (>C=O) bonded to two alkyl methyl groups.",
-            "chapter": "Carbon and its Compounds",
-            "difficulty": "easy"
-        }
-    ],
-    "mathematics_10": [
-        {
-            "question_text": "If alpha and beta are zeroes of the quadratic polynomial p(x) = x^2 - 5x + 6, find the value of (alpha + beta):",
-            "options": ["5", "-5", "6", "-6"],
-            "correct_answer": 0,
-            "explanation": "For ax^2 + bx + c = 0, sum of roots alpha + beta = -b/a = -(-5)/1 = 5.",
-            "chapter": "Polynomials",
-            "difficulty": "easy"
-        },
-        {
-            "question_text": "The discriminant of the quadratic equation 2x^2 - 4x + 3 = 0 is:",
-            "options": ["-8 (No real roots)", "8 (Two distinct real roots)", "0 (Two equal real roots)", "16"],
-            "correct_answer": 0,
-            "explanation": "Discriminant D = b^2 - 4ac = (-4)^2 - 4(2)(3) = 16 - 24 = -8. Since D < 0, there are no real roots.",
-            "chapter": "Quadratic Equations",
-            "difficulty": "medium"
-        },
-        {
-            "question_text": "What is the 10th term of the arithmetic progression (AP): 2, 7, 12, ...?",
-            "options": ["47", "45", "52", "50"],
-            "correct_answer": 0,
-            "explanation": "First term a = 2, common difference d = 7 - 2 = 5. nth term an = a + (n - 1)d = 2 + (10 - 1)*5 = 2 + 45 = 47.",
-            "chapter": "Arithmetic Progressions",
-            "difficulty": "easy"
-        },
-        {
-            "question_text": "Evaluate: sin^2(30°) + cos^2(30°):",
-            "options": ["1", "0.5", "1.5", "0"],
-            "correct_answer": 0,
-            "explanation": "By fundamental trigonometric identity, sin^2(theta) + cos^2(theta) = 1 for any angle theta.",
-            "chapter": "Introduction to Trigonometry",
-            "difficulty": "easy"
-        }
-    ],
-    "social_science_10": [
-        {
-            "question_text": "Who was proclaimed the Emperor of unified Germany at the Palace of Versailles in January 1871?",
-            "options": ["Kaiser William I of Prussia", "Otto von Bismarck", "Napoleon Bonaparte", "Victor Emmanuel II"],
-            "correct_answer": 0,
-            "explanation": "Following Prussian victories orchestrated by Bismarck, Kaiser William I was proclaimed German Emperor at Versailles in 1871.",
-            "chapter": "The Rise of Nationalism in Europe",
-            "difficulty": "medium"
-        },
-        {
-            "question_text": "Which soil type covers the largest area in India and is formed by the deposition of silt by Himalayan river systems?",
-            "options": ["Alluvial Soil", "Black Soil (Regur)", "Red and Yellow Soil", "Laterite Soil"],
-            "correct_answer": 0,
-            "explanation": "Alluvial soil is deposited by the Indus, Ganga, and Brahmaputra river systems and covers the vast northern plains of India.",
-            "chapter": "Resources and Development",
-            "difficulty": "easy"
-        }
-    ],
-    "general": [
-        {
-            "question_text": "Which fundamental principle states that the total energy of an isolated system remains constant over time?",
-            "options": ["Law of Conservation of Energy", "Newton's First Law", "Hooke's Law", "Archimedes' Principle"],
-            "correct_answer": 0,
-            "explanation": "The Law of Conservation of Energy states energy cannot be created or destroyed, only transformed from one form to another.",
-            "chapter": "Core Curriculum",
-            "difficulty": "easy"
-        },
-        {
-            "question_text": "What is the SI unit of electric potential difference?",
-            "options": ["Volt (V)", "Ampere (A)", "Ohm", "Watt (W)"],
-            "correct_answer": 0,
-            "explanation": "Potential difference is measured in Volts (V), defined as work done per unit electric charge: 1 V = 1 Joule / 1 Coulomb.",
-            "chapter": "Electricity",
-            "difficulty": "easy"
-        }
-    ]
-}
-# No pre-set questions pool. Every quiz must be generated dynamically by the LLM.
-
-def get_fallback_questions(subject: str, grade: int, count: int) -> List[Dict[str, Any]]:
-    sub_lower = subject.lower()
-    pool_key = "general"
-    if "science" in sub_lower or "physics" in sub_lower or "chem" in sub_lower or "bio" in sub_lower:
-        pool_key = f"science_{grade}" if f"science_{grade}" in CURRICULUM_BACKUP_POOL else "science_10"
-    elif "math" in sub_lower:
-        pool_key = f"mathematics_{grade}" if f"mathematics_{grade}" in CURRICULUM_BACKUP_POOL else "mathematics_10"
-    elif "social" in sub_lower or "history" in sub_lower or "civics" in sub_lower or "geo" in sub_lower:
-        pool_key = f"social_science_{grade}" if f"social_science_{grade}" in CURRICULUM_BACKUP_POOL else "social_science_10"
-
-    pool = CURRICULUM_BACKUP_POOL.get(pool_key, CURRICULUM_BACKUP_POOL["general"])
-    # Repeat pool to fulfill count
-    full_list = (pool * ((count // len(pool)) + 1))[:count]
-    return full_list
 
 @router.post("/generate", response_model=QuizGenerateResponse)
 async def generate_quiz(
@@ -154,26 +23,20 @@ async def generate_quiz(
 ):
     session_id = str(uuid.uuid4())
     grade_val = req.grade or 10
+    difficulty_val = (req.difficulty or "medium").lower()
     time_limit_seconds = req.question_count * 90
 
-    chapters_str = ", ".join(req.chapters) if req.chapters else "Core NCERT Curriculum"
     chapters_str = ", ".join(req.chapters) if req.chapters else "Full NCERT Curriculum"
 
     system_prompt = (
         f"You are a senior NCERT/CBSE curriculum subject matter expert and examiner for Class {grade_val}.\n"
-        f"Your task is to generate {req.question_count} high-quality, concept-testing multiple choice questions "
         f"Your task is to generate {req.question_count} brand-new, original, concept-testing multiple choice questions "
         f"strictly tailored to Class {grade_val} {req.subject}.\n\n"
         "RULES:\n"
-        "1. Every question must directly test concepts from the specified syllabus/chapters.\n"
-        "2. Provide 4 distinct, plausible options.\n"
-        "3. Specify 'correct_answer' as an integer index (0, 1, 2, or 3) into the options list.\n"
-        "4. Include an in-depth 'explanation' explaining WHY the correct option is right and highlighting the underlying NCERT rule/formula.\n"
-        "5. Return ONLY a valid JSON object matching this schema:\n"
         "1. Every question must be original and directly test deep conceptual understanding and problem-solving for the specified chapters.\n"
         "2. NEVER repeat the same standard questions or generic questions.\n"
         "3. Provide exactly 4 distinct, plausible options.\n"
-        "4. Format all math equations and symbols using clean Unicode (e.g. x², α, β, √, ±, θ, 1/2) or plain text notation. Do not write raw LaTeX backslash commands.\n"
+        "4. Format all math equations, exponents, and symbols using clean Unicode (e.g. x², α, β, √, ±, θ, 1/2) or plain text notation. Do not write raw LaTeX backslash commands.\n"
         "5. Specify 'correct_answer' as an integer index (0, 1, 2, or 3) pointing to the correct option in 'options'.\n"
         "6. Include an in-depth 'explanation' explaining WHY the correct option is right and highlighting the underlying NCERT rule, law, formula, or concept.\n"
         "7. Return ONLY a valid JSON object matching this schema:\n"
@@ -195,17 +58,12 @@ async def generate_quiz(
         f"Grade: Class {grade_val} (NCERT/CBSE)\n"
         f"Subject: {req.subject}\n"
         f"Target Chapters: {chapters_str}\n"
-        f"Difficulty: {req.difficulty}\n"
+        f"Difficulty: {difficulty_val}\n"
         f"Number of Questions: {req.question_count}\n"
-        f"Please generate {req.question_count} authentic questions now."
         f"Generate {req.question_count} fresh, unique multiple choice questions now."
     )
 
-    source = "ai"
-    raw_questions: List[Dict[str, Any]] = []
-
     try:
-        data = await call_llm_json(prompt=user_prompt, system_prompt=system_prompt)
         data = await call_llm_json(prompt=user_prompt, system_prompt=system_prompt, temperature=0.7)
         candidate_list = data.get("questions", [])
         if isinstance(candidate_list, list) and len(candidate_list) > 0:
@@ -213,9 +71,6 @@ async def generate_quiz(
         else:
             raise ValueError("LLM JSON did not contain a valid questions array")
     except Exception as e:
-        logger.error(f"LLM quiz generation failed: {e}. Activating curriculum backup.")
-        source = "curriculum-fallback"
-        raw_questions = get_fallback_questions(req.subject, grade_val, req.question_count)
         logger.error(f"LLM quiz generation failed: {e}", exc_info=True)
         raise HTTPException(
             status_code=502,
@@ -255,7 +110,7 @@ async def generate_quiz(
             "explanation": explanation,
             "subject": req.subject,
             "chapter": chapter_name,
-            "difficulty": req.difficulty,
+            "difficulty": difficulty_val,
             "question_index": idx
         }
 
@@ -265,7 +120,7 @@ async def generate_quiz(
             options=options,
             subject=req.subject,
             chapter=chapter_name,
-            difficulty=req.difficulty,
+            difficulty=difficulty_val,
             question_index=idx
         ))
 
@@ -283,11 +138,10 @@ async def generate_quiz(
         session_id=session_id,
         grade=grade_val,
         subject=req.subject,
-        difficulty=req.difficulty,
+        difficulty=difficulty_val,
         question_count=len(questions_for_client),
         time_limit_seconds=time_limit_seconds,
         questions=questions_for_client,
-        source=source
         source="ai"
     )
 

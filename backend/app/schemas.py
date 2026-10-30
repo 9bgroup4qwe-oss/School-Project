@@ -29,7 +29,7 @@ class QuizGenerateRequest(BaseModel):
     grade: Optional[int] = Field(default=10, ge=1, le=12)
     subject: str = Field(..., min_length=1, max_length=100)
     chapters: List[str] = Field(default_factory=list)
-    difficulty: str = Field(..., pattern="^(easy|medium|hard)$")
+    difficulty: str = Field(default="medium", pattern=r"^(?i)(easy|medium|hard)$")
     question_count: int = Field(default=5, ge=1, le=25)
 
 class QuizGenerateResponse(BaseModel):

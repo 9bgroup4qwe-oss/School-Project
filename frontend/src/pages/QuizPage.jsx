@@ -747,6 +747,18 @@ export default function QuizPage() {
                 </div>
               </div>
 
+              {/* Inline Error display in step 4 */}
+              {error && (
+                <div style={{
+                  background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: '12px', padding: '1rem', color: '#f87171', marginBottom: '1.25rem',
+                  display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.9rem'
+                }}>
+                  <AlertCircle size={20} color="#ef4444" style={{ flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>{error}</div>
+                </div>
+              )}
+
               {/* Navigation and Launch Button */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
                 <button
@@ -771,7 +783,7 @@ export default function QuizPage() {
                   }}
                 >
                   {loading ? (
-                    <span>Generating Custom Exam with OpenAI...</span>
+                    <span>Generating with OpenAI...</span>
                   ) : (
                     <>
                       <Sparkles size={20} />
@@ -782,6 +794,46 @@ export default function QuizPage() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* FULLSCREEN AI SYNTHESIS LOADING OVERLAY */}
+      {loading && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(11, 15, 25, 0.85)', backdropFilter: 'blur(10px)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div className="glass-panel animate-scale-up" style={{
+            padding: '2.5rem 3rem', maxWidth: '460px', width: '90%', textAlign: 'center',
+            border: '1px solid rgba(99, 102, 241, 0.4)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.3)'
+          }}>
+            <div style={{
+              width: '68px', height: '68px', borderRadius: '50%',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 1.5rem',
+              boxShadow: '0 0 30px rgba(99, 102, 241, 0.6)'
+            }}>
+              <Brain size={36} color="#fff" />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff' }}>
+              Synthesizing AI Quiz
+            </h3>
+            <p style={{ color: 'var(--text-subtle)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              OpenAI is generating brand-new, concept-testing questions tailored to your syllabus.
+            </p>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.5rem 1.25rem', borderRadius: '20px',
+              background: 'rgba(99, 102, 241, 0.15)', border: '1px solid rgba(99, 102, 241, 0.3)',
+              fontSize: '0.85rem', color: '#a5b4fc', fontWeight: 600
+            }}>
+              <Sparkles size={15} /> Class {selectedGrade} • {currentSubjectObj?.name} • {difficulty.toUpperCase()}
+            </div>
+          </div>
         </div>
       )}
 
